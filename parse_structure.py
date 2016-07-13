@@ -10,6 +10,13 @@ class Parser:
         self.additional_constraints = dummy_processor.additional_constraints()
         # relaxed_constraints = dummy_processor.relaxed_constraints()
 
+    def debug(self, lines):
+        for i, line in enumerate(lines):
+            if i > 1000:
+                print('stopped (debug mode on)')
+                break
+            yield line
+
     def skip_page_counts(self, lines):
         for line in lines:
             if not re.search('\[\[[pP]age.*\]\]', line):
@@ -28,6 +35,10 @@ class Parser:
             section_start = re.match('Sec\.\s+([0-9]+)\.([0-9]+)', line)
             part_start = re.match("PART|\s+Subpart", line)
 
+            part_match = re.match("PART ([0-9]+)_(.*)--", line)
+            if part_match:
+                self.parts.append((part_match.group(1),
+                                  part_match.group(2).title()))
             if part_start:
                 part = None
                 section = None
@@ -46,6 +57,22 @@ class Parser:
         for part, section, line in lines:
             if last_section and section is not last_section \
              or part is not last_part:
+                section_header = line + lines.next()[2]
+                section_header = section_header.replace('\n', ' ')
+                section_description = re.match(
+                                        'Sec.\s+[0-9]+\.[0-9]+\s+([^\.]+)',
+                                        section_header).group(1).strip()
+                section_description = re.sub("\s+", " ", section_description)
+
+                if last_part not in self.sections:
+                    self.sections[last_part] = [(last_part,
+                                                 last_section,
+                                                 section_description)]
+                else:
+                    self.sections[last_part].append((last_part,
+                                                     last_section,
+                                                     section_description))
+
                 yield (last_part, last_section, text)
                 text = ''
             text += line
@@ -98,11 +125,22 @@ class Parser:
     def render_sections(self, sections):
         section_html = open('master.tmpl.html').read()
         par_html = '<p class="depth{0}">{1}</p>'
+
+        title_subheader = """<h3>
+                                <a href="/">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/html/titles/title{0}.html">
+                                    Title {0}
+                                </a><span>&nbsp/&nbsp</span>
+                                <a href="/html/parts/{0}CFR{1}.html">Part {1}</a><span>&nbsp/&nbsp<span>
+                                {2}
+                            </h3>
+                            """
+
         for section in sections:
             content = ''
             for i, subsection in enumerate(section[2]):
                 if i == 0:
-                    content += '<h3>{0}</h3>'.format(subsection[2])
+                    content += title_subheader.format(self.title[0], section[0], subsection[2])
                 else:
                     formatted_paragraph = re.sub(r"^(\(\S+\))", r"<em>\1</em>",
                                                  subsection[2])
@@ -111,35 +149,92 @@ class Parser:
             rendered = section_html.format(content)
             yield (section[0], section[1], rendered)
 
+    def write_part(self, title, part, sections):
+        master_html = open('master.tmpl.html').read()
+        table_boilerplate = open('table.tmpl.html').read()
+
+        title_subheader = """<h3>
+                                <a href="/">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/html/titles/title{0}.html">
+                                    Title {0}
+                                </a><span>&nbsp/&nbsp</span>
+                                Part {1}
+                            </h3>
+                            """.format(
+                                title[0], part)
+        section_data_row = """
+                <tr>
+                  <th scope="row"><a href="/html/sections/{0}CFR{1}.{2}.html">
+                        Section {1}.{2}
+                        </a>
+                  </th>
+                  <td>{3}</td>
+                </tr>
+                """
+
+        rows = ''
+        for section in sections:
+            rows += section_data_row.format(title[0], section[0],
+                                            section[1], section[2])
+
+        content = title_subheader + table_boilerplate.format('Section No.', rows)
+        html = master_html.format(content)
+
+        filename = 'html/parts/{0}CFR{1}.html'.format(title[0], part)
+        f = open(filename, 'w')
+        f.write(html)
+        f.close()
+
+        print('wrote: %s' % filename)
+
+    def write_title(self, title, parts):
+        master_html = open('master.tmpl.html').read()
+        table_boilerplate = open('table.tmpl.html').read()
+
+        title_subheader = """<h3>
+                                <a href="/">CFR</a> /
+                                Title {0}: {1}</h3>
+                            """.format(
+                                title[0], title[1])
+        part_data_row = """
+                <tr>
+                  <th scope="row"><a href="/html/parts/{0}CFR{1}.html">Part {1}
+                  </a></th>
+                  <td>{2}</td>
+                </tr>
+                """
+
+        rows = ''
+        for part in parts:
+            rows += part_data_row.format(title[0], part[0], part[1])
+
+        content = title_subheader + table_boilerplate.format('Part No.', rows)
+        html = master_html.format(content)
+
+        filename = 'html/titles/title%s.html' % title[0]
+        f = open(filename, 'w')
+        f.write(html)
+        f.close()
+
+        print('wrote: %s' % filename)
+
     def write_index(self, titles):
-        title_html = open('master.tmpl.html').read()
-        table_boilerplate = """
-            <table>
-                <thead>
-                  <tr>
-                    <th scope="col">Title No</th>
-                    <th scope="col">Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {0}
-                </tbody>
-              </table>
-        """
+        master_html = open('master.tmpl.html').read()
+        table_boilerplate = open('table.tmpl.html').read()
 
         title_data_row = """
                 <tr>
-                  <th scope="row">Title {0}</th>
+                  <th scope="row"><a href="/html/titles/title{0}.html">Title {0}</a></th>
                   <td>{1}</td>
                 </tr>
-        """
+                """
 
         rows = ''
         for title in titles:
             rows += title_data_row.format(title[0], title[1])
 
-        content = table_boilerplate.format(rows)
-        html = title_html.format(content)
+        content = table_boilerplate.format('Title No.', rows)
+        html = master_html.format(content)
 
         filename = 'index.html'
         f = open(filename, 'w')
@@ -149,8 +244,9 @@ class Parser:
         print('wrote: %s' % filename)
 
     def write_section(self, year, title, section):
-        filename = 'html/sections/{1}CFR{2}.{3}({0}).html'.format(
-                                        year, title, section[0], section[1])
+        filename = 'html/sections/{0}CFR{1}.{2}.html'.format(title,
+                                                             section[0],
+                                                             section[1])
         f = open(filename, 'w')
         f.write(section[2])
         f.close()
@@ -169,24 +265,33 @@ class Parser:
 
         return (title, description)
 
-    def run(self):
+    def run(self, debug=False):
         filenames = ['data/text/CFR-2016-title11.txt']
 
         titles = []
         for filename in filenames:
-            title = self.get_title(filename)
-            titles.append(title)
+            self.title = self.get_title(filename)
+            titles.append(self.title)
             match = re.search("CFR-([0-9]+)-title([0-9]+)", filename)
             year = match.groups()[0]
 
             f = open(filename)
+
+            if debug:
+                f = self.debug(f)
+
             self.parts = []
+            self.sections = {}
             for result in self.render_sections(
                            self.parse_structure(
                             self.yield_sections(
                              self.find_sections(
                               self.skip_page_counts(f))))):
-                self.write_section(year, title[0], result)
+                self.write_section(year, self.title[0], result)
+            self.write_title(self.title, self.parts)
+
+            for part in self.sections:
+                self.write_part(self.title, part, self.sections[part])
 
             f.close()
 
@@ -194,4 +299,4 @@ class Parser:
 
 if __name__ == "__main__":
     parser = Parser()
-    parser.run()
+    parser.run(debug=True)

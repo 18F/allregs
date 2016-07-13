@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
-from os import makedirs
 from requests.packages.urllib3.util.retry import Retry
 from requests.adapters import HTTPAdapter
 
@@ -12,7 +11,6 @@ retries = Retry(total=3,
                 status_forcelist=[500, 502, 503, 504])
 s.mount('http://', HTTPAdapter(max_retries=retries))
 
-makedirs('data/text', exist_ok=True)
 
 volume_url = 'https://www.gpo.gov/fdsys/pkg/CFR-{0}-title{1}-vol{2}/html/CFR-{0}-title{1}-vol{2}.htm'
 this_year = datetime.now().year
