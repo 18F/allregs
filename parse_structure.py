@@ -2,7 +2,7 @@ import re
 from regparser.tree.xml_parser.reg_text import (get_markers,
                                                 RegtextParagraphProcessor)
 from regparser.tree.depth.derive import derive_depths
-
+import sys
 
 class Parser:
     def __init__(self):
@@ -55,8 +55,8 @@ class Parser:
         last_part = None
         text = ''
         for part, section, line in lines:
-            if last_section and section is not last_section \
-             or part is not last_part:
+            if last_section and last_part and (section is not last_section \
+             or part is not last_part):
                 section_header = line + lines.next()[2]
                 section_header = section_header.replace('\n', ' ')
                 section_description = re.match(
@@ -110,6 +110,7 @@ class Parser:
             depths = [assignment.depth for assignment in solution[0]]
         else:
             depths = [0]*len(markers)
+            self.section_failures += 1
 
         result = []
         for depth, subsection in zip(depths, subsections):
@@ -120,6 +121,7 @@ class Parser:
         for section in sections:
             subsections = self.get_subsections(section)
             result = self.get_depths(subsections)
+            self.sections_processed += 1
             yield [section[0], section[1], result]
 
     def render_sections(self, sections):
@@ -267,8 +269,10 @@ class Parser:
 
     def run(self, debug=False):
         filenames = ['data/text/CFR-2016-title11.txt']
-
         titles = []
+
+        self.sections_processed = 0
+        self.section_failures = 0
         for filename in filenames:
             self.title = self.get_title(filename)
             titles.append(self.title)
@@ -297,6 +301,17 @@ class Parser:
 
         self.write_index(titles)
 
+        # Report on failure rate
+        failure_rate = 100*(float(self.section_failures /
+                                  float(self.sections_processed)))
+        print('%d sections processed, %d failures (%.2f%%)' %
+              (self.sections_processed, self.section_failures,
+               failure_rate))
+
 if __name__ == "__main__":
     parser = Parser()
-    parser.run(debug=True)
+
+    debug = False
+    if '--debug' in sys.argv:
+        debug = True
+    parser.run(debug)
