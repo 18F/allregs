@@ -2,7 +2,9 @@ import re
 from regparser.tree.xml_parser.reg_text import (get_markers,
                                                 RegtextParagraphProcessor)
 from regparser.tree.depth.derive import derive_depths
+from regparser.tree.depth import markers as mtypes
 import sys
+import os
 
 class Parser:
     def __init__(self):
@@ -12,7 +14,7 @@ class Parser:
 
     def debug(self, lines):
         for i, line in enumerate(lines):
-            if i > 1000:
+            if i > 20000:
                 print('stopped (debug mode on)')
                 break
             yield line
@@ -31,6 +33,7 @@ class Parser:
     def find_sections(self, lines):
         part = None
         section = None
+
         for line in lines:
             section_start = re.match('Sec\.\s+([0-9]+)\.([0-9]+)\s+', line)
             part_start = re.match("PART|\s+Subpart", line)
@@ -43,10 +46,12 @@ class Parser:
                 part = None
                 section = None
 
-            if section_start:
+            if section_start and last_line.isspace():
+                section_length = 0
                 part = section_start.groups()[0]
                 section = section_start.groups()[1]
 
+            last_line = line
             if part and section:
                 yield (part, section, line)
 
@@ -58,8 +63,6 @@ class Parser:
             if last_section and last_part and (section is not last_section or
                                                part is not last_part):
                 section_header = line + lines.next()[2]
-                print section_header
-                print part, section
                 section_header = section_header.replace('\n', ' ')
                 match = re.match('Sec.\s+{0}.{1}+\s+([^\.]+)'
                                  .format(part, section),
@@ -103,10 +106,23 @@ class Parser:
                         subsections.append((marker, tail))
         return subsections
 
+    def markers_are_valid(self, markers):
+        all_markers = set(markers)
+        all_types = []
+        for mtype in mtypes.types:
+            all_types += list(mtype)
+
+        all_types = set(all_types)
+
+        return not all_markers.difference(all_types)
+
     def get_depths(self, subsections):
         markers = [s[0] for s in subsections]
-        solution = derive_depths(markers, self.additional_constraints)
 
+        if self.markers_are_valid(markers):
+            solution = derive_depths(markers, self.additional_constraints)
+        else:
+            solution = None
         # if not solution:
         #    solution = derive_depths(markers, relaxed_constraints)
 
@@ -271,10 +287,18 @@ class Parser:
 
         return (title, description)
 
-    def run(self, debug=False):
-        filenames = ['data/text/CFR-2016-title11.txt']
-        titles = []
+    def run(self, title=None, debug=False):
 
+        if title:
+            filenames = ['data/text/{0}'.format(filename)
+                         for filename in os.listdir('data/text')
+                         if filename.endswith('%s.txt' % title)]
+        else:
+            filenames = ['data/text/{0}'.format(filename)
+                         for filename in os.listdir('data/text')]
+
+        print filenames
+        titles = []
         self.sections_processed = 0
         self.section_failures = 0
         for filename in filenames:
@@ -314,8 +338,13 @@ class Parser:
 
 if __name__ == "__main__":
     parser = Parser()
-
-    debug = False
-    if '--debug' in sys.argv:
-        debug = True
-    parser.run(debug)
+    debug = None
+    title = None
+    for arg in sys.argv:
+        if arg == '--debug':
+            debug = True
+        if arg.startswith('--title='):
+            title = arg.split('=')[1]
+    print title
+    print debug
+    parser.run(title, debug)
