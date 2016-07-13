@@ -32,7 +32,7 @@ class Parser:
         part = None
         section = None
         for line in lines:
-            section_start = re.match('Sec\.\s+([0-9]+)\.([0-9]+)', line)
+            section_start = re.match('Sec\.\s+([0-9]+)\.([0-9]+)\s+', line)
             part_start = re.match("PART|\s+Subpart", line)
 
             part_match = re.match("PART ([0-9]+)_(.*)--", line)
@@ -55,14 +55,18 @@ class Parser:
         last_part = None
         text = ''
         for part, section, line in lines:
-            if last_section and last_part and (section is not last_section \
-             or part is not last_part):
+            if last_section and last_part and (section is not last_section or
+                                               part is not last_part):
                 section_header = line + lines.next()[2]
+                print section_header
+                print part, section
                 section_header = section_header.replace('\n', ' ')
-                section_description = re.match(
-                                        'Sec.\s+[0-9]+\.[0-9]+\s+([^\.]+)',
-                                        section_header).group(1).strip()
-                section_description = re.sub("\s+", " ", section_description)
+                match = re.match('Sec.\s+{0}.{1}+\s+([^\.]+)'
+                                 .format(part, section),
+                                 section_header)
+
+
+                section_description = re.sub("\s+", " ", match.group(1).strip())
 
                 if last_part not in self.sections:
                     self.sections[last_part] = [(last_part,
