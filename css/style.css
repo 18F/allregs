@@ -1,0 +1,42 @@
+footer {
+    position: absolute;
+    left: 0;
+    height: 100px;
+    width: 100%;
+    background-color: black;
+    color: gray;
+}
+
+header {
+  padding: 2rem;
+  border-bottom: 2px solid gray;
+}
+
+.title {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.depth0 {
+  margin-left: 2em;
+}
+
+.depth1 {
+  margin-left: 4em;
+}
+
+.depth2 {
+  margin-left: 6em;
+}
+
+.depth3 {
+  margin-left: 8em;
+}
+
+.depth4 {
+  margin-left: 10em;
+}
+
+.depth5 {
+  margin-left: 12em;
+}

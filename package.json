@@ -1,0 +1,15 @@
+{
+  "name": "allregs",
+  "version": "1.0.0",
+  "description": "A pretty, search engine optimized, easily shareable version of the text of the most recent annual editions of the Code of Federal Regulations (CFR)",
+  "main": "index.js",
+  "dependencies": {
+    "uswds": "^0.9.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
