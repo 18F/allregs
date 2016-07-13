@@ -34,9 +34,17 @@ header {
 }
 
 .depth4 {
-  margin-left: 10em;
+  margin-left: 9em;
 }
 
 .depth5 {
+  margin-left: 10em;
+}
+
+.depth6 {
+  margin-left: 11em;
+}
+
+.depth7 {
   margin-left: 12em;
 }
