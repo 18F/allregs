@@ -13,6 +13,22 @@ class Parser:
         self.additional_constraints = dummy_processor.additional_constraints()
         # relaxed_constraints = dummy_processor.relaxed_constraints()
 
+        self.typos = {"50": {"Sec. 263.53  Other funds.": "Sec. 253.53  Other funds."}}
+
+    def start_at_part(self, sections, part_start):
+        started = False
+        for section in sections:
+            if int(section[0]) >= int(part_start):
+                started = True
+            if started:
+                yield section
+
+    def end_at_part(self, sections, end_part):
+        for section in sections:
+            if int(section[0]) >= int(end_part):
+                break
+            yield section
+
     def debug(self, sections):
         for i, section in enumerate(sections):
             if i > 50:
@@ -20,9 +36,13 @@ class Parser:
                 break
             yield section
 
-    def skip_page_counts(self, lines):
+    def clean_text(self, lines):
         for line in lines:
             if not re.search('\[\[[pP]age.*\]\]', line):
+                if self.title[0] in self.typos\
+                 and line.strip() in self.typos[self.title[0]]:
+                    print line
+                    yield self.typos[self.title[0]][line.strip()] + '\n'
                 yield line
 
     def find_sections(self, lines):
@@ -32,13 +52,14 @@ class Parser:
 
         for line in lines:
             section_start = re.match('Sec\.\s+([0-9]+)\.([0-9]+)  [A-Z]', line)
-            part_start = re.match("PART|\s+Subpart", line)
 
-            part_match = re.match("\s*PART [0-9]+_(?:[A-Z]+ *)+", line)
-            if part_match:
+            part_match_line = re.match("\s*PART [0-9]+_(:?Mc)?[^a-z]{5}", line)
+            part_match = False
+            if part_match_line:
                 full_part_str = line
                 for i in range(10):
-                    part_match = re.match("\s*PART ([0-9]+)_(.*)(:?(:?\[RESERVED\])|(:?\-\-))",
+                    full_part_str = full_part_str.replace('\n', ' ')
+                    part_match = re.match("\s*PART ([0-9]+)_((:?Mc)?[^a-z]{5}.*)(:?(:?\[RESERVED\])|(:?\-\-)|(:?Subpart)|(:?Authority)|(:?Sec\.))",
                                           full_part_str, re.S)
                     if part_match:
                         break
@@ -53,7 +74,7 @@ class Parser:
 
             chapter_start = re.match("\s+CHAPTER", line)
             subchapter_start = re.match("\s+Subpart [A-Z]_", line)
-            end_section = part_start or chapter_start or subchapter_start
+            end_section = part_match or chapter_start or subchapter_start
             if end_section:
                 part = None
                 section = None
@@ -301,7 +322,7 @@ class Parser:
 
         return (title, description)
 
-    def run(self, title=None, debug=False):
+    def run(self, title=None, debug=False, part_start=None, part_end=None):
 
         if title:
             filenames = ['data/text/{0}'.format(filename)
@@ -311,7 +332,6 @@ class Parser:
             filenames = ['data/text/{0}'.format(filename)
                          for filename in os.listdir('data/text')]
 
-        print filenames
         titles = []
         self.sections_processed = 0
         self.section_failures = 0
@@ -328,10 +348,16 @@ class Parser:
 
             sections = self.yield_sections(
                          self.find_sections(
-                          self.skip_page_counts(f)))
+                          self.clean_text(f)))
 
             if debug:
                 sections = self.debug(sections)
+
+            if part_start:
+                sections = self.start_at_part(sections, part_start)
+
+            if part_end:
+                sections = self.end_at_part(sections, part_end)
 
             for result in self.render_sections(
                            self.parse_structure(sections)):
@@ -363,11 +389,15 @@ if __name__ == "__main__":
     parser = Parser()
     debug = None
     title = None
+    part_start = None
+    part_end = None
     for arg in sys.argv:
         if arg == '--debug':
             debug = True
         if arg.startswith('--title='):
-            title = arg.split('=')[1]
-    print title
-    print debug
-    parser.run(title, debug)
+            title = "{0:02d}".format(int(arg.split('=')[1]))
+        if arg.startswith('--part-start='):
+            part_start = int(arg.split('=')[1])
+        if arg.startswith('--part-end='):
+            part_end = int(arg.split('=')[1])
+    parser.run(title, debug, part_start, part_end)
