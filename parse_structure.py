@@ -6,48 +6,59 @@ from regparser.tree.depth import markers as mtypes
 import sys
 import os
 
+
 class Parser:
     def __init__(self):
         dummy_processor = RegtextParagraphProcessor()
         self.additional_constraints = dummy_processor.additional_constraints()
         # relaxed_constraints = dummy_processor.relaxed_constraints()
 
-    def debug(self, lines):
-        for i, line in enumerate(lines):
-            if i > 1000:
+    def debug(self, sections):
+        for i, section in enumerate(sections):
+            if i > 50:
                 print('stopped (debug mode on)')
                 break
-            yield line
+            yield section
 
     def skip_page_counts(self, lines):
         for line in lines:
             if not re.search('\[\[[pP]age.*\]\]', line):
                 yield line
 
-    def add_section_text(self, lines):
-        for line in lines:
-            if re.match('Sec\.\s+([0-9]+)\.([0-9]+)', line):
-                line = line.replace('Sec.', 'Section')
-            yield line
-
     def find_sections(self, lines):
         part = None
         section = None
+        last_line = ''
 
         for line in lines:
-            section_start = re.match('Sec\.\s+([0-9]+)\.([0-9]+)\s+', line)
+            section_start = re.match('Sec\.\s+([0-9]+)\.([0-9]+)  [A-Z]', line)
             part_start = re.match("PART|\s+Subpart", line)
 
-            part_match = re.match("PART ([0-9]+)_(.*)--", line)
+            part_match = re.match("\s*PART [0-9]+_(?:[A-Z]+ *)+", line)
             if part_match:
+                full_part_str = line
+                for i in range(10):
+                    part_match = re.match("\s*PART ([0-9]+)_(.*)(:?(:?\[RESERVED\])|(:?\-\-))",
+                                          full_part_str, re.S)
+                    if part_match:
+                        break
+                    full_part_str += lines.next()
+                if not part_match:
+                    print full_part_str
+
+                description = re.sub("\s+", " ", part_match.group(2))\
+                                .title().strip()
                 self.parts.append((part_match.group(1),
-                                  part_match.group(2).title()))
-            if part_start:
+                                  description))
+
+            chapter_start = re.match("\s+CHAPTER", line)
+            subchapter_start = re.match("\s+Subpart [A-Z]_", line)
+            end_section = part_start or chapter_start or subchapter_start
+            if end_section:
                 part = None
                 section = None
 
             if section_start and last_line.isspace():
-                section_length = 0
                 part = section_start.groups()[0]
                 section = section_start.groups()[1]
 
@@ -68,8 +79,8 @@ class Parser:
                                  .format(part, section),
                                  section_header)
 
-
-                section_description = re.sub("\s+", " ", match.group(1).strip())
+                section_description = re.sub("\s+", " ",
+                                             match.group(1).strip())
 
                 if last_part not in self.sections:
                     self.sections[last_part] = [(last_part,
@@ -139,7 +150,7 @@ class Parser:
         for section in sections:
             subsections = self.get_subsections(section)
             print("Parsing {0}CFR {1}.{2}..."
-                  .format(self.title[0], section[1], section[1]))
+                  .format(self.title[0], section[0], section[1]))
             result = self.get_depths(subsections)
             self.sections_processed += 1
             yield [section[0], section[1], result]
@@ -153,7 +164,8 @@ class Parser:
                                 <a href="/html/titles/title{0}.html">
                                     Title {0}
                                 </a><span>&nbsp/&nbsp</span>
-                                <a href="/html/parts/{0}CFR{1}.html">Part {1}</a><span>&nbsp/&nbsp<span>
+                                <a href="/html/parts/{0}CFR{1}.html">Part {1}
+                                </a><span>&nbsp/&nbsp<span>
                                 {2}
                             </h3>
                             """
@@ -162,7 +174,9 @@ class Parser:
             content = ''
             for i, subsection in enumerate(section[2]):
                 if i == 0:
-                    content += title_subheader.format(self.title[0], section[0], subsection[2])
+                    content += title_subheader.format(self.title[0],
+                                                      section[0],
+                                                      subsection[2])
                 else:
                     formatted_paragraph = re.sub(r"^(\(\S+\))", r"<em>\1</em>",
                                                  subsection[2])
@@ -180,17 +194,17 @@ class Parser:
                                 <a href="/html/titles/title{0}.html">
                                     Title {0}
                                 </a><span>&nbsp/&nbsp</span>
-                                Part {1}
+                                Part {1}: {2}
                             </h3>
                             """.format(
-                                title[0], part)
+                                title[0], part[0], part[1])
         section_data_row = """
                 <tr>
-                  <th scope="row"><a href="/html/sections/{0}CFR{1}.{2}.html">
+                  <td scope="row"><a href="/html/sections/{0}CFR{1}.{2}.html">
                         Section {1}.{2}
                         </a>
-                  </th>
-                  <td>{3}</td>
+                  </td>
+                  <td scope="row">{3}</td>
                 </tr>
                 """
 
@@ -199,10 +213,11 @@ class Parser:
             rows += section_data_row.format(title[0], section[0],
                                             section[1], section[2])
 
-        content = title_subheader + table_boilerplate.format('Section No.', rows)
+        content = title_subheader + table_boilerplate.format('Section No.',
+                                                             rows)
         html = master_html.format(content)
 
-        filename = 'html/parts/{0}CFR{1}.html'.format(title[0], part)
+        filename = 'html/parts/{0}CFR{1}.html'.format(title[0], part[0])
         f = open(filename, 'w')
         f.write(html)
         f.close()
@@ -220,9 +235,9 @@ class Parser:
                                 title[0], title[1])
         part_data_row = """
                 <tr>
-                  <th scope="row"><a href="/html/parts/{0}CFR{1}.html">Part {1}
-                  </a></th>
-                  <td>{2}</td>
+                  <td scope="row"><a href="/html/parts/{0}CFR{1}.html">Part {1}
+                  </a></td>
+                  <td scope="row">{2}</td>
                 </tr>
                 """
 
@@ -291,7 +306,7 @@ class Parser:
         if title:
             filenames = ['data/text/{0}'.format(filename)
                          for filename in os.listdir('data/text')
-                         if filename.endswith('%s.txt' % title)]
+                         if filename.startswith(title+'CFR')]
         else:
             filenames = ['data/text/{0}'.format(filename)
                          for filename in os.listdir('data/text')]
@@ -308,21 +323,30 @@ class Parser:
 
             f = open(filename)
 
-            if debug:
-                f = self.debug(f)
-
             self.parts = []
             self.sections = {}
+
+            sections = self.yield_sections(
+                         self.find_sections(
+                          self.skip_page_counts(f)))
+
+            if debug:
+                sections = self.debug(sections)
+
             for result in self.render_sections(
-                           self.parse_structure(
-                            self.yield_sections(
-                             self.find_sections(
-                              self.skip_page_counts(f))))):
+                           self.parse_structure(sections)):
                 self.write_section(year, self.title[0], result)
             self.write_title(self.title, self.parts)
 
-            for part in self.sections:
-                self.write_part(self.title, part, self.sections[part])
+            for part_key in self.sections:
+                part = [p for p in self.parts if p[0] == part_key]
+
+                if len(part) == 0:
+                    print self.parts
+                    print part_key
+
+                part = part[0]
+                self.write_part(self.title, part, self.sections[part_key])
 
             f.close()
 

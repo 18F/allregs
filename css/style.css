@@ -12,6 +12,10 @@ header {
   border-bottom: 2px solid gray;
 }
 
+td:nth-child(1) {
+  width: 14rem;
+}
+
 .title {
   margin-top: 0px;
   margin-bottom: 0px;
