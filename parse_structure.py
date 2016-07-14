@@ -14,7 +14,7 @@ class Parser:
 
     def debug(self, lines):
         for i, line in enumerate(lines):
-            if i > 20000:
+            if i > 1000:
                 print('stopped (debug mode on)')
                 break
             yield line
@@ -114,7 +114,7 @@ class Parser:
 
         all_types = set(all_types)
 
-        return not all_markers.difference(all_types)
+        return not all_markers.difference(all_types) and len(markers) < 150
 
     def get_depths(self, subsections):
         markers = [s[0] for s in subsections]
@@ -123,8 +123,6 @@ class Parser:
             solution = derive_depths(markers, self.additional_constraints)
         else:
             solution = None
-        # if not solution:
-        #    solution = derive_depths(markers, relaxed_constraints)
 
         if solution:
             depths = [assignment.depth for assignment in solution[0]]
@@ -140,6 +138,8 @@ class Parser:
     def parse_structure(self, sections):
         for section in sections:
             subsections = self.get_subsections(section)
+            print("Parsing {0}CFR {1}.{2}..."
+                  .format(self.title[0], section[1], section[1]))
             result = self.get_depths(subsections)
             self.sections_processed += 1
             yield [section[0], section[1], result]
@@ -272,14 +272,13 @@ class Parser:
         f = open(filename, 'w')
         f.write(section[2])
         f.close()
-        print('wrote: %s' % filename)
 
     def get_title(self, filename):
         f = open(filename)
         head = ''
         for i, line in enumerate(f):
             head += line
-            if i == 100:
+            if i == 25:
                 break
         match = re.match(".*\s+Title ([0-9]+)\s+((?:\S+\s)+)", head, re.S)
         title = match.groups()[0]
@@ -304,7 +303,7 @@ class Parser:
         for filename in filenames:
             self.title = self.get_title(filename)
             titles.append(self.title)
-            match = re.search("CFR-([0-9]+)-title([0-9]+)", filename)
+            match = re.search("[0-9]+CFR\-\(([0-9]+)\)", filename)
             year = match.groups()[0]
 
             f = open(filename)

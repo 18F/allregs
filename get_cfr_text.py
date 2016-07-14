@@ -3,13 +3,14 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from requests.packages.urllib3.util.retry import Retry
 from requests.adapters import HTTPAdapter
+from time import sleep
 
 s = requests.Session()
 
-retries = Retry(total=3,
-                backoff_factor=0.1,
+retries = Retry(total=8,
+                backoff_factor=0.5,
                 status_forcelist=[500, 502, 503, 504])
-s.mount('http://', HTTPAdapter(max_retries=retries))
+s.mount('https://', HTTPAdapter(max_retries=retries))
 
 
 volume_url = 'https://www.gpo.gov/fdsys/pkg/CFR-{0}-title{1}-vol{2}/html/CFR-{0}-title{1}-vol{2}.htm'
@@ -32,6 +33,6 @@ for title in range(1, 51):
         print('success: %s' % url)
         title_text += BeautifulSoup(r.text, 'html.parser').get_text()
         volume += 1
-        f = open('data/text/CFR-{0}-title{1}.txt'.format(year, title), 'w')
-        f.write(title_text)
+        f = open('data/text/{0:02d}CFR-({1}).txt'.format(title, year), 'w')
+        f.write(title_text.encode('utf-8'))
         f.close()
