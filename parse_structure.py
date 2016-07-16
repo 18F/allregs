@@ -11,9 +11,15 @@ class Parser:
     def __init__(self):
         dummy_processor = RegtextParagraphProcessor()
         self.additional_constraints = dummy_processor.additional_constraints()
-        # relaxed_constraints = dummy_processor.relaxed_constraints()
 
-        self.typos = {"50": {"Sec. 263.53  Other funds.": "Sec. 253.53  Other funds."}}
+        self.typos = {"50": {"Sec. 263.53  Other funds.": "Sec. 253.53  Other funds."},
+                      "12": {"Part 1221_MARGIN AND CAPITAL REQUIREMENTS FOR COVERED SWAP ENTITIES":
+                             "PART 1221_MARGIN AND CAPITAL REQUIREMENTS FOR COVERED SWAP ENTITIES"},
+                      "32": {"Sec. 856.7  Action after final decision.":
+                             "Sec. 865.7  Action after final decision."},
+                      "36": {"Sec. 36.19  Special actions.":
+                             "Sec. 242.19  Special actions."}}
+
 
     def start_at_part(self, sections, part_start):
         started = False
@@ -25,7 +31,7 @@ class Parser:
 
     def end_at_part(self, sections, end_part):
         for section in sections:
-            if int(section[0]) >= int(end_part):
+            if int(section[0]) > int(end_part):
                 break
             yield section
 
@@ -41,9 +47,13 @@ class Parser:
             if not re.search('\[\[[pP]age.*\]\]', line):
                 if self.title[0] in self.typos\
                  and line.strip() in self.typos[self.title[0]]:
+                    print "typo found"
                     print line
+                    print 'changed to:'
+                    print self.typos[self.title[0]][line.strip()]
                     yield self.typos[self.title[0]][line.strip()] + '\n'
-                yield line
+                else:
+                    yield line
 
     def find_sections(self, lines):
         part = None
@@ -53,13 +63,24 @@ class Parser:
         for line in lines:
             section_start = re.match('Sec\.\s+([0-9]+)\.([0-9]+)  [A-Z]', line)
 
-            part_match_line = re.match("\s*PART [0-9]+_(:?Mc)?[^a-z]{5}", line)
+            part_match_line = re.match("\s*PART [0-9]+[_\s]+" +
+                                       "(:?Mc)?(:?8\(a\))?" +
+                                       "(?:C\[Ocirc\]TE)?" +
+                                       "(?:DoD)?" +
+                                       "[^a-z]{5}" +
+                                       "(:?\[RESERVED\])?", line)
             part_match = False
             if part_match_line:
                 full_part_str = line
                 for i in range(10):
                     full_part_str = full_part_str.replace('\n', ' ')
-                    part_match = re.match("\s*PART ([0-9]+)_((:?Mc)?[^a-z]{5}.*)(:?(:?\[RESERVED\])|(:?\-\-)|(:?Subpart)|(:?Authority)|(:?Sec\.))",
+                    part_match = re.match("\s*PART ([0-9]+)[_\s]+" +
+                                          "((:?Mc)?(:?8\(a\))?" +
+                                          "(?:C\[Ocirc\]TE)?" +
+                                          "(?:DoD)?" +
+                                          "(?:[^a-z]{5})?.*)(:?(:?\[RESERVED\])|" +
+                                          "(:?\-\-)|(:?Subpart)|" +
+                                          "(:?Authority)|(:?Sec\.))",
                                           full_part_str, re.S)
                     if part_match:
                         break
@@ -119,8 +140,12 @@ class Parser:
             last_part = part
 
     def split_text_by_marker(self, marker, text):
-        regex = "(\({}\))".format(marker)
+        regex = "(\(\s?{}\s?\))".format(marker)
         splits = re.split(regex, text, maxsplit=1)
+
+        if len(splits) < 3:
+            print(text)
+
         return splits[0], splits[1] + splits[2]
 
     def get_subsections(self, section):
@@ -129,6 +154,7 @@ class Parser:
         subsections = []
         for p in paragraphs:
             markers = get_markers(p)
+            # markers = re.findall("(?:--|^|(?:\s\s\([A-Z]+|[a-z]+|[0-9]+\)))\(([A-Z]+|[a-z]+|[0-9]+)\)", p)
             if not markers:
                 subsections.append(('MARKERLESS', p))
             else:
@@ -160,6 +186,9 @@ class Parser:
             depths = [assignment.depth for assignment in solution[0]]
         else:
             depths = [0]*len(markers)
+            print("..PARSE FAILED")
+            print(markers)
+            print(subsections)
             self.section_failures += 1
 
         result = []
@@ -322,15 +351,13 @@ class Parser:
 
         return (title, description)
 
-    def run(self, title=None, debug=False, part_start=None, part_end=None):
-
-        if title:
-            filenames = ['data/text/{0}'.format(filename)
-                         for filename in os.listdir('data/text')
-                         if filename.startswith(title+'CFR')]
-        else:
-            filenames = ['data/text/{0}'.format(filename)
-                         for filename in os.listdir('data/text')]
+    def run(self, title_start=0, title_end=50, debug=False,
+            part_start=None, part_end=None):
+        filenames = []
+        for filename in os.listdir('data/text'):
+            title = int(re.search("([0-9]+)CFR", filename).group(1))
+            if title >= title_start and title <= title_end:
+                filenames.append('data/text/' + filename)
 
         titles = []
         self.sections_processed = 0
@@ -368,10 +395,12 @@ class Parser:
                 part = [p for p in self.parts if p[0] == part_key]
 
                 if len(part) == 0:
+                    print("Couldn't find part...")
                     print self.parts
                     print part_key
-
-                part = part[0]
+                    part = (part_key, 'Unknown Part')
+                else:
+                    part = part[0]
                 self.write_part(self.title, part, self.sections[part_key])
 
             f.close()
@@ -394,10 +423,12 @@ if __name__ == "__main__":
     for arg in sys.argv:
         if arg == '--debug':
             debug = True
-        if arg.startswith('--title='):
-            title = "{0:02d}".format(int(arg.split('=')[1]))
+        if arg.startswith('--title-start='):
+            title_start = int(arg.split('=')[1])
+        if arg.startswith('--title-end='):
+            title_end = int(arg.split('=')[1])
         if arg.startswith('--part-start='):
             part_start = int(arg.split('=')[1])
         if arg.startswith('--part-end='):
             part_end = int(arg.split('=')[1])
-    parser.run(title, debug, part_start, part_end)
+    parser.run(title_start, title_end, debug, part_start, part_end)
