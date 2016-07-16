@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/uswds.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../css/uswds.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/uswds.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+    <header>
+        <h2 class="title">
+            <a href="/">Code of Federal Regulations (alpha)</a>
+        </h2>
+    </header>
+
+    <div class="usa-grid">
+      <div class="usa-width-one-whole">
+          <h3>
+                                <a href="/">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/html/titles/title40.html">
+                                    Title 40
+                                </a><span>&nbsp/&nbsp</span>
+                                <a href="/html/parts/40CFR1065.html">Part 1065
+                                </a><span>&nbsp/&nbsp<span>
+                                Sec.  1065.512  Duty cycle generation.
+                            </h3>
+                            <p class="depth1"><em>(a)</em> Generate duty cycles according to this section if the standard-setting part requires engine mapping to generate a duty cycle for your engine configuration. The standard-setting part generally defines applicable duty cycles in a normalized format. A normalized duty cycle consists of a sequence of paired values for speed and torque or for speed and power.</p><p class="depth1"><em>(b)</em> Transform normalized values of speed, torque, and power using the following conventions:</p><p class="depth2"><em>(1)</em> Engine speed for variable-speed engines. For variable-speed engines, normalized speed may be expressed as a percentage between warm idle speed, fnidle, and maximum test speed, fntest, or speed may be expressed by referring to a defined speed by name, such as ``warm idle,'' ``intermediate speed,'' or ``A,'' ``B,'' or ``C'' speed. Section 1065.610 describes how to transform these normalized values into a sequence of reference speeds, fnref. Running duty cycles with negative or small normalized speed values near warm idle speed may cause low-speed idle governors to activate and the engine torque to exceed the reference torque even though the operator demand is at a minimum. In such cases, we recommend controlling the dynamometer so it gives priority to follow the reference torque instead of the reference speed and let the engine govern the speed. Note that the cycle-validation criteria in Sec.  1065.514 allow an engine to govern itself. This allowance permits you to test engines with enhanced-idle devices and to simulate the effects of transmissions such as automatic transmissions. For example, an enhanced-idle device might be an idle speed value that is normally commanded only under cold-start conditions to quickly warm up the engine and aftertreatment devices. In this case, negative and very low normalized speeds will generate reference speeds below this higher enhanced idle speed and we recommend controlling the dynamometer so it gives priority to follow the reference torque, controlling the operator demand so it gives priority to follow reference speed and let the engine govern the speed when the operator demand is at minimum.</p><p class="depth2"><em>(2)</em> Engine torque for variable-speed engines. For variable-speed engines, normalized torque is expressed as a percentage of the mapped torque at the corresponding reference speed. Section 1065.610 describes how to transform normalized torques into a sequence of reference torques, Tref. Section 1065.610 also describes special requirements for modifying transient duty cycles for variable-speed engines intended primarily for propulsion of a vehicle with an automatic transmission. Section 1065.610 also describes under what conditions you may command Tref greater than the reference torque you calculated from a normalized duty cycle. This provision permits you to command Tref values that are limited by a declared minimum torque. For any negative torque commands, command minimum operator demand and use the dynamometer to control engine speed to the reference speed, but if reference speed is so low that the idle governor activates, we recommend using the dynamometer to control torque to zero, CITT, or a declared minimum torque as appropriate. Note that you may omit power and torque points during motoring from the cycle-validation criteria in Sec.  1065.514. Also, use the maximum mapped torque at the minimum mapped speed as the maximum torque for any reference speed at or below the minimum mapped speed.</p><p class="depth2"><em>(3)</em> Engine torque for constant-speed engines. For constant-speed engines, normalized torque is expressed as a percentage of maximum test torque, Ttest. Section 1065.610 describes how to transform normalized torques into a sequence of reference torques, Tref. Section 1065.610 also describes under what conditions you may command Tref greater than the reference torque you calculated from the normalized duty cycle. This provision permits you to command Tref values that are limited by a declared minimum torque.</p><p class="depth2"><em>(4)</em> Engine power. For all engines, normalized power is expressed as a percentage of mapped power at maximum test speed, fntest, unless otherwise specified by the standard-setting part. Section 1065.610 describes how to transform these normalized values into a sequence of reference powers, Pref. Convert these reference powers to corresponding torques for operator demand and dynamometer control. Use the reference speed associated with each reference power point for this conversion. As with cycles specified with % torque, issue torque commands more frequently and linearly interpolate between these reference torque values generated from cycles with % power.</p><p class="depth2"><em>(5)</em> Ramped-modal cycles. For ramped-modal cycles, generate reference speed and torque values at 1 Hz and use this sequence of points to run the cycle and validate it in the same manner as with a transient cycle. During the transition between modes, linearly ramp the denormalized reference speed and torque values between modes to generate reference points at 1 Hz. Do not linearly ramp the normalized reference torque values between modes and then denormalize them. Do not linearly ramp normalized or denormalized reference power points. These cases will produce nonlinear torque ramps in the denormalized reference torques. If the speed and torque ramp runs through a point above the engine's torque curve, continue to command the reference torques and allow the operator demand to go to maximum. Note that you may omit power and either torque or speed points from the cycle-validation criteria under these conditions as specified in Sec.  1065.514.</p><p class="depth1"><em>(c)</em> For variable-speed engines, command reference speeds and torques sequentially to perform a duty cycle. Issue speed and torque commands at a frequency of at least 5 Hz for transient cycles and at least 1 Hz for steady-state cycles (i.e., discrete-mode and ramped-modal). Linearly interpolate between the 1 Hz reference values specified in the standard-setting part to determine more frequently issued reference speeds and torques. During an emission test, record the feedback speeds and torques at a frequency of at least 5 Hz for transient cycles and at least 1 Hz for steady-state cycles. For transient cycles, you may record the feedback speeds and torques at lower frequencies (as low as 1 Hz) if you record the average value over the time interval between recorded values. Calculate the average values based on feedback values updated at a frequency
+
+of at least 5 Hz. Use these recorded values to calculate cycle-validation statistics and total work.</p><p class="depth1"><em>(d)</em> For constant-speed engines, operate the engine with the same production governor you used to map the engine in Sec.  1065.510 or simulate the in-use operation of a governor the same way you simulated it to map the engine in Sec.  1065.510. Command reference torque values sequentially to perform a duty cycle. Issue torque commands at a frequency of at least 5 Hz for transient cycles and at least 1 Hz for steady-state cycles (i.e., discrete-mode, ramped-modal). Linearly interpolate between the 1 Hz reference values specified in the standard-setting part to determine more frequently issued reference torque values. During an emission test, record the feedback speeds and torques at a frequency of at least 5 Hz for transient cycles and at least 1 Hz for steady-state cycles. For transient cycles, you may record the feedback speeds and torques at lower frequencies (as low as 1 Hz) if you record the average value over the time interval between recorded values. Calculate the average values based on feedback values updated at a frequency of at least 5 Hz. Use these recorded values to calculate cycle-validation statistics and total work.</p><p class="depth1"><em>(e)</em> You may perform practice duty cycles with the test engine to optimize operator demand and dynamometer controls to meet the cycle-validation criteria specified in Sec.  1065.514.
+[73 FR 37317, June 30, 2008, as amended at 79 FR 23774, Apr. 28, 2014]</p>
+      </div>
+    </div>
+
+    <footer class="usa-footer usa-footer-slim" role="contentinfo">
+    <div class="usa-grid usa-footer-return-to-top">
+      <a href="#">Return to top</a>
+    </div>
+    <div class="usa-footer-primary-section">
+      <div class="usa-grid-full">
+        <h5>Built with ❤ by <a href="https://18f.gsa.gov/">18F</a>. Code available <a href="#">on Github.</a></h5>
+      </div>
+    </div>
+  </footer>
+  </body>
+</html>

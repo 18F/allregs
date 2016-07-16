@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/uswds.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../css/uswds.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/uswds.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+    <header>
+        <h2 class="title">
+            <a href="/">Code of Federal Regulations (alpha)</a>
+        </h2>
+    </header>
+
+    <div class="usa-grid">
+      <div class="usa-width-one-whole">
+          <h3>
+                                <a href="/">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/html/titles/title40.html">
+                                    Title 40
+                                </a><span>&nbsp/&nbsp</span>
+                                <a href="/html/parts/40CFR1039.html">Part 1039
+                                </a><span>&nbsp/&nbsp<span>
+                                Sec.  1039.525  How do I adjust emission levels to account for
+                            </h3>
+                            <p class="depth0">This section describes how to adjust emission results from engines using aftertreatment technology with infrequent regeneration events. For this section, ``regeneration'' means an intended event during which emission levels change while the system restores aftertreatment performance. For example, exhaust gas temperatures may increase temporarily to remove sulfur from adsorbers or to oxidize accumulated particulate matter in a trap. For this section, ``infrequent'' refers to regeneration events that are expected to occur on average less than once over the applicable transient duty cycle or ramped-modal cycle, or on average less than once per typical mode in a discrete-mode test. If your engine family includes engines with one or more AECDs for emergency equipment applications approved under Sec.  1039.115(g)(4), do not consider additional regenerations resulting from those AECDs when calculating emission factors or frequencies under this section.</p><p class="depth1"><em>(a)</em> Developing adjustment factors. Develop an upward adjustment factor and a downward adjustment factor for each pollutant based on measured emission data and observed regeneration frequency. Adjustment factors should generally apply to an entire engine family, but you may develop separate adjustment factors for different engine configurations within an engine family. If you use adjustment factors for certification, you must identify the frequency factor, F, from paragraph (b) of this section in your application for certification and use the adjustment factors in all testing for that engine family. You may use carryover or carry-across data to establish adjustment factors for an engine family, as described in Sec.  1039.235(d), consistent with good engineering judgment. All adjustment factors for regeneration are additive. Determine adjustment factors separately for different test segments. For example, determine separate adjustment factors for hot-start and cold-start test segments and for different modes of a discrete-mode steady-state test. You may use either of the following different approaches for engines that use aftertreatment with infrequent regeneration events:</p><p class="depth2"><em>(1)</em> You may disregard this section if regeneration does not significantly affect emission levels for an engine family (or configuration) or if it is not practical to identify when regeneration occurs. If you do not use adjustment factors under this section, your engines must meet emission standards for all testing, without regard to regeneration.</p><p class="depth2"><em>(2)</em> If your engines use aftertreatment technology with extremely infrequent regeneration and you are unable to apply the provisions of this section, you may ask us to approve an alternate methodology to account for regeneration events.</p><p class="depth1"><em>(b)</em> Calculating average adjustment factors. Calculate the average adjustment factor (EFA) based on the following equation:
+EFA = (F)(EFH) + (1-F)(EFL)
+Where:
+F = the frequency of the regeneration event in terms of the fraction of</p><p class="depth2">tests during which the regeneration occurs.EFH = measured emissions from a test segment in which the</p><p class="depth2">regeneration occurs.EFL = measured emissions from a test segment in which the</p><p class="depth2">regeneration does not occur.</p><p class="depth1"><em>(c)</em> Applying adjustment factors. Apply adjustment factors based on whether regeneration occurs during the test run. You must be able to identify regeneration in a way that is readily apparent during all testing.</p><p class="depth2"><em>(1)</em> If regeneration does not occur during a test segment, add an upward adjustment factor to the measured emission rate. Determine the upward adjustment factor (UAF) using the following equation:
+
+
+
+UAF = EFA - EFL</p><p class="depth2"><em>(2)</em> If regeneration occurs or starts to occur during a test segment, subtract a downward adjustment factor from the measured emission rate. Determine the downward adjustment factor (DAF) using the following equation:
+DAF = EFH - EFA</p><p class="depth1"><em>(d)</em> Sample calculation. If EFL is 0.10 g/kW-hr, EFH is 0.50 g/kW-hr, and F is 0.1 (the regeneration occurs once for each ten tests), then:
+EFA = (0.1)(0.5 g/kW-hr) + (1.0 - 0.1)(0.1 g/kW-hr) = 0.14 g/kW-hr.UAF = 0.14 g/kW-hr - 0.10 g/kW-hr = 0.04 g/kW-hr.DAF = 0.50 g/kW-hr - 0.14 g/kW-hr = 0.36 g/kW-hr.
+[69 FR 39213, June 29, 2004, as amended at 77 FR 34147, June 8, 2012]</p>
+      </div>
+    </div>
+
+    <footer class="usa-footer usa-footer-slim" role="contentinfo">
+    <div class="usa-grid usa-footer-return-to-top">
+      <a href="#">Return to top</a>
+    </div>
+    <div class="usa-footer-primary-section">
+      <div class="usa-grid-full">
+        <h5>Built with ❤ by <a href="https://18f.gsa.gov/">18F</a>. Code available <a href="#">on Github.</a></h5>
+      </div>
+    </div>
+  </footer>
+  </body>
+</html>

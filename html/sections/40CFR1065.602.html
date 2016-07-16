@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/uswds.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../css/uswds.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/uswds.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+    <header>
+        <h2 class="title">
+            <a href="/">Code of Federal Regulations (alpha)</a>
+        </h2>
+    </header>
+
+    <div class="usa-grid">
+      <div class="usa-width-one-whole">
+          <h3>
+                                <a href="/">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/html/titles/title40.html">
+                                    Title 40
+                                </a><span>&nbsp/&nbsp</span>
+                                <a href="/html/parts/40CFR1065.html">Part 1065
+                                </a><span>&nbsp/&nbsp<span>
+                                Sec.  1065.602  Statistics.
+                            </h3>
+                            <p class="depth1"><em>(a)</em> Overview. This section contains equations and example calculations for statistics that are specified in this part. In this section we use the letter ``y'' to denote a generic measured quantity, the superscript over-bar ``-`` to denote an arithmetic mean, and the subscript ``ref'' to denote the reference quantity being measured.</p><p class="depth1"><em>(b)</em> Arithmetic mean. Calculate an arithmetic mean, y, as follows:</p><p class="depth2">[GRAPHIC] [TIFF OMITTED] TR30AP10.003</p><p class="depth2">Example:
+N = 3y1 = 10.60y2 = 11.91yN = y3 = 11.09[GRAPHIC] [TIFF OMITTED] TR30AP10.004
+y = 11.20</p><p class="depth1"><em>(c)</em> Standard deviation. Calculate the standard deviation for a non-biased (e.g., N-1) sample, s, as follows:[GRAPHIC] [TIFF OMITTED] TR13JY05.024
+Example:
+N = 3y1 = 10.60y2 = 11.91yN = y3 = 11.09y = 11.20[GRAPHIC] [TIFF OMITTED] TR13JY05.025
+sy = 0.6619</p><p class="depth1"><em>(d)</em> Root mean square. Calculate a root mean square, rmsy, as follows:[GRAPHIC] [TIFF OMITTED] TR13JY05.026
+Example:
+N = 3y1 = 10.60y2 = 11.91yN = y3 = 11.09[GRAPHIC] [TIFF OMITTED] TR13JY05.027
+rmsy = 11.21</p><p class="depth1"><em>(e)</em> Accuracy. Determine accuracy as described in this paragraph (e). Make multiple measurements of a standard quantity to create a set of observed values, yi, and compare each observed value to the known value of the standard quantity. The standard quantity may have a single known value, such as a gas standard, or a set of known values of negligible range, such as a known applied pressure produced by a calibration device during repeated applications. The known value of the standard quantity is represented by yrefi . If you use a standard quantity with a single value, yrefi would be constant. Calculate an accuracy value as follows:[GRAPHIC] [TIFF OMITTED] TR30AP10.005
+Example:
+yref = 1800.0N = 3</p><p class="depth2">y1 = 1806.4y2 = 1803.1y3 = 1798.9
+
+[GRAPHIC] [TIFF OMITTED] TR30AP10.006
+[GRAPHIC] [TIFF OMITTED] TR30AP10.007
+accuracy = 2.8</p><p class="depth1"><em>(f)</em> t-test. Determine if your data passes a t-test by using the following equations and tables:</p><p class="depth2"><em>(1)</em> For an unpaired t-test, calculate the t statistic and its number of degrees of freedom, as follows:
+
+[GRAPHIC] [TIFF OMITTED] TR28AP14.010</p><p class="depth2"><em>(2)</em> For a paired t-test, calculate the t statistic and its number of degrees of freedom, as follows, noting that the [epsi]i are the errors (e.g., differences) between each pair of yrefi and yi:
+
+[GRAPHIC] [TIFF OMITTED] TR28AP14.011
+
+
+
+[GRAPHIC] [TIFF OMITTED] TR28AP14.012</p><p class="depth3">Table 1 of Sec.   1065.602--Critical t Values Versus Number of Degrees</p><p class="depth3">of Freedom, v \1\------------------------------------------------------------------------</p><p class="depth3">Confidence</p><p class="depth3">n                       -------------------------</p><p class="depth3">90%          95%------------------------------------------------------------------------1.............................................        6.314       12.7062.............................................        2.920        4.3033.............................................        2.353        3.1824.............................................        2.132        2.7765.............................................        2.015        2.5716.............................................        1.943        2.4477.............................................        1.895        2.3658.............................................        1.860        2.3069.............................................        1.833        2.26210............................................        1.812        2.22811............................................        1.796        2.20112............................................        1.782        2.17913............................................        1.771        2.16014............................................        1.761        2.14515............................................        1.753        2.13116............................................        1.746        2.12018............................................        1.734        2.10120............................................        1.725        2.08622............................................        1.717        2.07424............................................        1.711        2.06426............................................        1.706        2.05628............................................        1.701        2.04830............................................        1.697        2.04235............................................        1.690        2.03040............................................        1.684        2.02150............................................        1.676        2.00970............................................        1.667        1.994100...........................................        1.660        1.9841000+.........................................        1.645        1.960------------------------------------------------------------------------\1\ Use linear interpolation to establish values not shown here.</p><p class="depth1"><em>(g)</em> F-test. Calculate the F statistic as follows:</p><p class="depth2">[GRAPHIC] [TIFF OMITTED] TR13JY05.036</p><p class="depth2">Example:
+
+[GRAPHIC] [TIFF OMITTED] TR13JY05.037
+[GRAPHIC] [TIFF OMITTED] TR13JY05.038
+[GRAPHIC] [TIFF OMITTED] TR13JY05.039
+F = 1.268</p><p class="depth2"><em>(1)</em> For a 90% confidence F-test, use Table 2 of this section to compare F to the Fcrit90 values tabulated versus (N-1) and (Nref-1). If F is less than Fcrit90, then F passes the F-test at 90% confidence.</p><p class="depth2"><em>(2)</em> For a 95% confidence F-test, use Table 3 of this section to compare F to the Fcrit95 values tabulated versus (N-1) and (Nref-1). If F is less than Fcrit95, then F passes the F-test at 95% confidence.
+
+[GRAPHIC] [TIFF OMITTED] TR13JY05.017
+
+
+
+[GRAPHIC] [TIFF OMITTED] TR13JY05.018</p><p class="depth1"><em>(h)</em> Slope. Calculate a least-squares regression slope, a1y, as follows:
+
+[GRAPHIC] [TIFF OMITTED] TR15SE11.021
+Example:
+N = 6000y1 = 2045.8y = 1050.1yref 1 = 2045.0yref = 1055.3[GRAPHIC] [TIFF OMITTED] TR15SE11.022
+a1y = 1.0110</p><p class="depth1"><em>(i)</em> Intercept. Calculate a least-squares regression intercept, a0y, as follows:[GRAPHIC] [TIFF OMITTED] TR13JY05.042
+Example:
+y = 1050.1a1y = 1.0110yref = 1055.3a0y = 1050.1 - (1.0110 [middot] 1055.3)a0y = -16.8083</p><p class="depth1"><em>(j)</em> Standard estimate of error. Calculate a standard estimate of error, SEE, as follows:
+
+[GRAPHIC] [TIFF OMITTED] TR28AP14.013
+
+
+
+[GRAPHIC] [TIFF OMITTED] TR28AP14.014</p><p class="depth1"><em>(k)</em> Coefficient of determination. Calculate a coefficient of determination, r\2\, as follows:[GRAPHIC] [TIFF OMITTED] TR13JY05.045
+Example:
+N = 6000y1 = 2045.8a0y = -16.8083a1y = 1.0110yrefi = 2045.0y = 1480.5[GRAPHIC] [TIFF OMITTED] TR13JY05.046
+[GRAPHIC] [TIFF OMITTED] TR13JY05.174</p><p class="depth1"><em>(l)</em> Flow-weighted mean concentration. In some sections of this part, you may need to calculate a flow-weighted mean concentration to determine the applicability of certain provisions. A flow-weighted mean is the mean of a quantity after it is weighted proportional to a corresponding flow rate. For example, if a gas concentration is measured continuously from the raw exhaust of an engine, its flow-weighted mean concentration is the sum of the products of each recorded concentration times its respective exhaust molar flow rate, divided by the sum of the recorded flow rate values. As another example, the bag concentration from a CVS system is the same as the flow-weighted mean concentration because the CVS system itself flow-weights the bag concentration. You might already expect a certain flow-weighted mean concentration of an emission at its standard based on previous testing with similar engines or testing with similar equipment and instruments. If you need to estimate your expected flow-weighted mean concentration of an emission at its standard, we recommend using the following
+
+examples as a guide for how to estimate the flow-weighted mean concentration expected at the standard. Note that these examples are not exact and that they contain assumptions that are not always valid. Use good engineering judgment to determine if you can use similar assumptions.</p><p class="depth2"><em>(1)</em> To estimate the flow-weighted mean raw exhaust NOX concentration from a turbocharged heavy-duty compression-ignition engine at a NOX standard of 2.5 g/(kW [middot] hr), you may do the following:</p><p class="depth3"><em>(i)</em> Based on your engine design, approximate a map of maximum torque versus speed and use it with the applicable normalized duty cycle in the standard-setting part to generate a reference duty cycle as described in Sec.  1065.610. Calculate the total reference work, Wref, as described in Sec.  1065.650. Divide the reference work by the duty cycle's time interval, [Delta]tdutycycle, to determine mean reference power, Pref.</p><p class="depth3"><em>(ii)</em> Based on your engine design, estimate maximum power, Pmax, the design speed at maximum power, fnmax, the design maximum intake manifold boost pressure, pinmax, and temperature, Tinmax. Also, estimate a mean fraction of power that is lost due to friction and pumping, pfrict. Use this information along with the engine displacement volume, Vdisp, an approximate volumetric efficiency, hV, and the number of engine strokes per power stroke (two-stroke or four-stroke), Nstroke, to estimate the maximum raw exhaust molar flow rate, nexhmax.</p><p class="depth3"><em>(iii)</em> Use your estimated values as described in the following example calculation:[GRAPHIC] [TIFF OMITTED] TR15SE11.023
+Example:
+eNOx = 2.5 g/(kW [middot] hr)Wref = 11.883 kW [middot] hrMNOx = 46.0055 g/mol = 46.0055 [middot] 10-\6\ g/</p><p class="depth4">[micro]mol[Delta]tdutycycle = 20 min = 1200 sPref = 35.65 kWPfrict = 15%Pmax = 125 kWpmax = 300 kPa = 300,000 PaVdisp = 3.0 l = 0.0030 m\3\/rfnmax = 2,800 r/min = 46.67 r/sNstroke = 4[eta]V = 0.9R = 8.314472 J/(mol [middot] K)Tmax = 348.15 K[GRAPHIC] [TIFF OMITTED] TR15SE11.024
+
+
+
+nexhmax = 6.53 mol/s[GRAPHIC] [TIFF OMITTED] TR15SE11.025
+xexp = 189.4 [micro]mol/mol</p><p class="depth2"><em>(2)</em> To estimate the flow-weighted mean NMHC concentration in a CVS from a naturally aspirated nonroad spark-ignition engine at an NMHC standard of 0.5 g/(kW [middot] hr), you may do the following:</p><p class="depth3"><em>(i)</em> Based on your engine design, approximate a map of maximum torque versus speed and use it with the applicable normalized duty cycle in the standard-setting part to generate a reference duty cycle as described in Sec.  1065.610. Calculate the total reference work, Wref, as described in Sec.  1065.650.</p><p class="depth3"><em>(ii)</em> Multiply your CVS total molar flow rate by the time interval of the duty cycle, [Delta]tdutycycle. The result is the total diluted exhaust flow of the ndexh.</p><p class="depth3"><em>(iii)</em> Use your estimated values as described in the following example calculation:[GRAPHIC] [TIFF OMITTED] TR13JY05.051
+Example:
+eNMHC = 1.5 g/(kW [middot] hr)Wref = 5.389 kW [middot] hrMNMHC = 13.875389 g/mol = 13.875389 [middot] 10-6</p><p class="depth4">g/[micro]molndexh = 6.021 mol/s[Delta]tdutycycle = 30 min = 1800 s[GRAPHIC] [TIFF OMITTED] TR13JY05.052
+xNMHC = 53.8 [micro]mol/mol
+[70 FR 40516, July 13, 2005, as amended at 73 FR 37324, June 30, 2008; 75 FR 23044, Apr. 30, 2010; 76 FR 57452, Sept. 15, 2011; 79 FR 23779, Apr. 28, 2014]</p><p class="depth4">Editorial Note: At 79 FR 23779, Apr. 28, 2014, Sec.  1065.605 was amended and paragraph (k) could be be revised because the text was not provided; however, the amendment could not be incorporated due to inaccurate amendatory instruction.</p>
+      </div>
+    </div>
+
+    <footer class="usa-footer usa-footer-slim" role="contentinfo">
+    <div class="usa-grid usa-footer-return-to-top">
+      <a href="#">Return to top</a>
+    </div>
+    <div class="usa-footer-primary-section">
+      <div class="usa-grid-full">
+        <h5>Built with ❤ by <a href="https://18f.gsa.gov/">18F</a>. Code available <a href="#">on Github.</a></h5>
+      </div>
+    </div>
+  </footer>
+  </body>
+</html>

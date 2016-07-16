@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/uswds.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../css/uswds.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/uswds.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+    <header>
+        <h2 class="title">
+            <a href="/">Code of Federal Regulations (alpha)</a>
+        </h2>
+    </header>
+
+    <div class="usa-grid">
+      <div class="usa-width-one-whole">
+          <h3>
+                                <a href="/">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/html/titles/title40.html">
+                                    Title 40
+                                </a><span>&nbsp/&nbsp</span>
+                                <a href="/html/parts/40CFR1037.html">Part 1037
+                                </a><span>&nbsp/&nbsp<span>
+                                Sec.  1037.640  Variable vehicle speed limiters.
+                            </h3>
+                            <p class="depth0">This section specifies provisions that apply for vehicle speed limiters (VSLs) that you model under Sec.  1037.520. This does not apply for VSLs that you do not model under Sec.  1037.520.</p><p class="depth0"><em>(a)</em> General. The regulations of this part do not constrain how you may design VSLs for your vehicles. For example, you may design your VSL to have a single fixed speed limit or a soft-top speed limit. You may also design your VSL to expire after accumulation of a predetermined number of miles. However, designs with soft tops or expiration features are subject to proration provisions under this section that do not apply to fixed VSLs that do not expire.</p><p class="depth0"><em>(b)</em> Definitions. The following definitions apply for purposes of this section:</p><p class="depth0"><em>(1)</em> Default speed limit means the speed limit that normally applies for the vehicle, except as follows:</p><p class="depth0"><em>(i)</em> The default speed limit for adjustable VSLs must represent the speed limit that applies when the VSL is adjusted to its highest setting under paragraph (c) of this section.</p><p class="depth0"><em>(ii)</em> For VSLs with soft tops, the default speed does not include speeds possible only during soft-top operation.</p><p class="depth0"><em>(iii)</em> For expiring VSLs, the default does not include speeds that are possible only after expiration.</p><p class="depth0"><em>(2)</em> Soft-top speed limit means the highest speed limit that applies during soft-top operation.</p><p class="depth0"><em>(3)</em> Maximum soft-top duration means the maximum amount of time that a vehicle could operate above the default speed limit.</p><p class="depth0"><em>(4)</em> Certified VSL means a VSL configuration that applies when a vehicle is new and until it expires.</p><p class="depth0"><em>(5)</em> Expiration point means the mileage at which a vehicle's certified VSL expires (or the point at which tamper protections expire).</p><p class="depth0"><em>(6)</em> Effective speed limit has the meaning given in paragraph (d) of this section.</p><p class="depth0"><em>(c)</em> Adjustments. You may design your VSL to be adjustable; however, this may affect the value you use in the GEM.</p><p class="depth0"><em>(1)</em> Except as specified in paragraph (c)(2) of this section, any adjustments that can be made to the engine, vehicle, or their controls that change the VSL's actual speed limit are considered to be adjustable operating parameters. Compliance is based on the vehicle being adjusted to the highest speed limit within this range.</p><p class="depth0"><em>(2)</em> The following adjustments are not adjustable parameters:</p><p class="depth0"><em>(i)</em> Adjustments made only to account for changing tire size or final drive ratio.</p><p class="depth0"><em>(ii)</em> Adjustments protected by encrypted controls or passwords.</p><p class="depth0"><em>(iii)</em> Adjustments possible only after the VSL's expiration point.</p><p class="depth0"><em>(d)</em> Effective speed limit. (1) For VSLs without soft tops or expiration points that expire before 1,259,000 miles, the effective speed limit is the highest speed limit that results by adjusting the VSL or other vehicle parameters consistent with the provisions of paragraph (c) of this section.</p><p class="depth0"><em>(2)</em> For VSLs with soft tops and/or expiration points, the effective speed limit is calculated as specified in this paragraph (d)(2), which is based on 10 hours of operation per day (394 miles per day for day cabs and 551 miles per day for sleeper cabs). Note that this calculation assumes that a fraction of this operation is speed limited (3.9 hours and 252 miles for day cabs, and 7.3 hours and 474 miles for sleeper cabs). Use the following equation to calculate the effective speed limit, rounded to the nearest 0.1 mph:
+Effective speed = ExF * [STF* STSL + (1-STF) * DSL] + (1-ExF)*65 mph
+Where:
+ExF = expiration point miles/1,259,000 milesSTF = maximum number of allowable soft top operation hours per day/3.9</p><p class="depth0">hours for day cabs (or maximum miles per day/252)STF = maximum number of allowable soft top operation hours per day/7.3</p><p class="depth0">hours for sleeper cabs (or maximum miles per day/474)STSL = the soft top speed limitDSL = the default speed limit</p>
+      </div>
+    </div>
+
+    <footer class="usa-footer usa-footer-slim" role="contentinfo">
+    <div class="usa-grid usa-footer-return-to-top">
+      <a href="#">Return to top</a>
+    </div>
+    <div class="usa-footer-primary-section">
+      <div class="usa-grid-full">
+        <h5>Built with ❤ by <a href="https://18f.gsa.gov/">18F</a>. Code available <a href="#">on Github.</a></h5>
+      </div>
+    </div>
+  </footer>
+  </body>
+</html>

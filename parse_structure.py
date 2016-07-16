@@ -85,13 +85,14 @@ class Parser:
                     if part_match:
                         break
                     full_part_str += lines.next()
-                if not part_match:
+                if part_match:
+                    description = re.sub("\s+", " ", part_match.group(2))\
+                                    .title().strip()
+                    self.parts.append((part_match.group(1),
+                                      description))
+                else:
                     print full_part_str
-
-                description = re.sub("\s+", " ", part_match.group(2))\
-                                .title().strip()
-                self.parts.append((part_match.group(1),
-                                  description))
+                
 
             chapter_start = re.match("\s+CHAPTER", line)
             subchapter_start = re.match("\s+Subpart [A-Z]_", line)
