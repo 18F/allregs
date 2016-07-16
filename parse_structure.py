@@ -187,8 +187,8 @@ class Parser:
         else:
             depths = [0]*len(markers)
             print("..PARSE FAILED")
-            print(markers)
-            print(subsections)
+            # print(markers)
+            # print(subsections)
             self.section_failures += 1
 
         result = []
@@ -351,11 +351,12 @@ class Parser:
 
         return (title, description)
 
-    def run(self, title_start=0, title_end=50, debug=False,
-            part_start=None, part_end=None):
+    def run(self, title_start, title_end, debug,
+            part_start, part_end):
         filenames = []
         for filename in os.listdir('data/text'):
             title = int(re.search("([0-9]+)CFR", filename).group(1))
+
             if title >= title_start and title <= title_end:
                 filenames.append('data/text/' + filename)
 
@@ -417,7 +418,8 @@ class Parser:
 if __name__ == "__main__":
     parser = Parser()
     debug = None
-    title = None
+    title_start = 1
+    title_end = 50
     part_start = None
     part_end = None
     for arg in sys.argv:
