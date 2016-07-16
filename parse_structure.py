@@ -1,6 +1,7 @@
 import re
 from regparser.tree.xml_parser.reg_text import (get_markers,
-                                                RegtextParagraphProcessor)
+                                                RegtextParagraphProcessor,
+                                                initial_markers)
 from regparser.tree.depth.derive import derive_depths
 from regparser.tree.depth import markers as mtypes
 import sys
@@ -92,7 +93,7 @@ class Parser:
                                       description))
                 else:
                     print full_part_str
-                
+
 
             chapter_start = re.match("\s+CHAPTER", line)
             subchapter_start = re.match("\s+Subpart [A-Z]_", line)
@@ -149,20 +150,37 @@ class Parser:
 
         return splits[0], splits[1] + splits[2]
 
+    def get_subsections_for_paragraph(self, paragraph, next_paragraph):
+        subsections = []
+        if next_paragraph:
+            next_markers = initial_markers(next_paragraph)
+            if len(next_markers) > 0:
+                next_marker = next_markers[0]
+            else:
+                next_marker = None
+        else:
+            next_marker = None
+        markers = get_markers(paragraph, next_marker)
+        if not markers:
+            subsections.append(('MARKERLESS', paragraph))
+        else:
+            tail = paragraph
+            for marker in markers:
+                    head, tail = self.split_text_by_marker(marker, tail)
+                    subsections.append((marker, tail))
+        return subsections
+
     def get_subsections(self, section):
         paragraphs = [re.sub(r"\n(\S)", r"\1", p.strip())
                       for p in re.split("\n +", section[2])]
         subsections = []
+        last_paragraph = None
         for p in paragraphs:
-            markers = get_markers(p)
-            # markers = re.findall("(?:--|^|(?:\s\s\([A-Z]+|[a-z]+|[0-9]+\)))\(([A-Z]+|[a-z]+|[0-9]+)\)", p)
-            if not markers:
-                subsections.append(('MARKERLESS', p))
-            else:
-                tail = p
-                for marker in markers:
-                        head, tail = self.split_text_by_marker(marker, tail)
-                        subsections.append((marker, tail))
+            if(last_paragraph):
+                subsections.extend(
+                        self.get_subsections_for_paragraph(last_paragraph, p))
+            last_paragraph = p
+        subsections.extend(self.get_subsections_for_paragraph(p, None))
         return subsections
 
     def markers_are_valid(self, markers):
@@ -212,10 +230,10 @@ class Parser:
 
         title_subheader = """<h3>
                                 <a href="/">CFR</a><span>&nbsp/&nbsp</span>
-                                <a href="/html/titles/title{0}.html">
+                                <a href="html/titles/title{0}.html">
                                     Title {0}
                                 </a><span>&nbsp/&nbsp</span>
-                                <a href="/html/parts/{0}CFR{1}.html">Part {1}
+                                <a href="html/parts/{0}CFR{1}.html">Part {1}
                                 </a><span>&nbsp/&nbsp<span>
                                 {2}
                             </h3>
@@ -242,7 +260,7 @@ class Parser:
 
         title_subheader = """<h3>
                                 <a href="/">CFR</a><span>&nbsp/&nbsp</span>
-                                <a href="/html/titles/title{0}.html">
+                                <a href="html/titles/title{0}.html">
                                     Title {0}
                                 </a><span>&nbsp/&nbsp</span>
                                 Part {1}: {2}
@@ -251,7 +269,7 @@ class Parser:
                                 title[0], part[0], part[1])
         section_data_row = """
                 <tr>
-                  <td scope="row"><a href="/html/sections/{0}CFR{1}.{2}.html">
+                  <td scope="row"><a href="html/sections/{0}CFR{1}.{2}.html">
                         Section {1}.{2}
                         </a>
                   </td>
@@ -286,7 +304,7 @@ class Parser:
                                 title[0], title[1])
         part_data_row = """
                 <tr>
-                  <td scope="row"><a href="/html/parts/{0}CFR{1}.html">Part {1}
+                  <td scope="row"><a href="html/parts/{0}CFR{1}.html">Part {1}
                   </a></td>
                   <td scope="row">{2}</td>
                 </tr>
@@ -312,7 +330,7 @@ class Parser:
 
         title_data_row = """
                 <tr>
-                  <th scope="row"><a href="/html/titles/title{0}.html">Title {0}</a></th>
+                  <th scope="row"><a href="html/titles/title{0}.html">Title {0}</a></th>
                   <td>{1}</td>
                 </tr>
                 """
