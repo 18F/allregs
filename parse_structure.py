@@ -44,6 +44,7 @@ class Parser:
 
     def clean_text(self, lines):
         for line in lines:
+            line = line.decode('ascii', errors='ignore')
             if not re.search('\[\[[pP]age.*\]\]', line):
                 if self.title[0] in self.typos\
                  and line.strip() in self.typos[self.title[0]]:
@@ -239,7 +240,7 @@ class Parser:
                             """
 
         for section in sections:
-            content = ''
+            content = u''
             for i, subsection in enumerate(section[2]):
                 if i == 0:
                     content += title_subheader.format(self.title[0],
@@ -248,8 +249,7 @@ class Parser:
                 else:
                     formatted_paragraph = re.sub(r"^(\(\S+\))", r"<em>\1</em>",
                                                  subsection[2])
-                    content += par_html.format(subsection[0],
-                                               formatted_paragraph)
+                    content += par_html.format(subsection[0], formatted_paragraph)
             rendered = section_html.format(content)
             yield (section[0], section[1], rendered)
 
