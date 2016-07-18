@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/allregs/css/uswds.min.css">
+    <link rel="stylesheet" href="/allregs/css/style.css">
+  </head>
+  <body>
+
+    <header>
+        <h2 class="title">
+            <a href="/allregs/index.html">Code of Federal Regulations (alpha)</a>
+        </h2>
+    </header>
+
+    <div class="usa-grid">
+      <div class="usa-width-one-whole">
+          <h3>
+                                <a href="/allregs/index.html">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/titles/title47.html">
+                                    Title 47
+                                </a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/parts/47CFR1.html">Part 1
+                                </a><span>&nbsp/&nbsp<span>
+                                Sec. 1.958  Distance computation.
+                            </h3>
+                            <p class="depth0">The method given in this section must be used to compute the distance between any two locations, except that, for computation of distance involving stations in Canada and Mexico, methods for distance computation specified in the applicable international agreement, if any, must be used instead. The result of a distance calculation under parts 21 and 101 of this chapter must be rounded to the nearest tenth of a kilometer. The method set forth in this paragraph is considered to be sufficiently accurate for distances not exceeding 475 km (295 miles).</p><p class="depth1"><em>(a)</em> Convert the latitudes and longitudes of each reference point from degree-minute-second format to degree-decimal format by dividing minutes by 60 and seconds by 3600, then adding the results to degrees.[GRAPHIC] [TIFF OMITTED] TR13AP05.008</p><p class="depth1"><em>(b)</em> Calculate the mean geodetic latitude between the two reference points by averaging the two latitudes:[GRAPHIC] [TIFF OMITTED] TR13AP05.009</p><p class="depth1"><em>(c)</em> Calculate the number of kilometers per degree latitude difference for the mean geodetic latitude calculated in paragraph (b) of this section as follows:
+KPDlat = 111.13209 - 0.56605 cos 2ML + 0.00120 cos 4ML</p><p class="depth1"><em>(d)</em> Calculate the number of kilometers per degree of longitude difference for the mean geodetic latitude calculated in paragraph (b) of this section as follows:
+KPDlon = 111.41513 cos ML - 0.09455 cos 3ML + 0.00012 cos 5ML</p><p class="depth1"><em>(e)</em> Calculate the North-South distance in kilometers as follows:
+NS = KPDlat x (LAT1dd - LAT2dd)</p><p class="depth1"><em>(f)</em> Calculate the East-West distance in kilometers as follows:
+EW = KPDlon x (LON1dd - LON2dd)</p><p class="depth1"><em>(g)</em> Calculate the distance between the locations by taking the square root of the sum of the squares of the East-West and North-South distances:[GRAPHIC] [TIFF OMITTED] TR13AP05.010</p><p class="depth1"><em>(h)</em> Terms used in this section are defined as follows:</p><p class="depth2"><em>(1)</em> LAT1dd and LON1dd are the coordinates of the first location in degree-decimal format.</p><p class="depth2"><em>(2)</em> LAT2dd and LON2dd are the coordinates of the second location in degree-decimal format.</p><p class="depth2"><em>(3)</em> ML is the mean geodetic latitude in degree-decimal format.</p><p class="depth2"><em>(4)</em> KPDlat is the number of kilometers per degree of latitude at a given mean geodetic latitude.</p><p class="depth2"><em>(5)</em> KPDlon is the number of kilometers per degree of longitude at a given mean geodetic latitude.</p><p class="depth2"><em>(6)</em> NS is the North-South distance in kilometers.</p><p class="depth2"><em>(7)</em> EW is the East-West distance in kilometers.</p><p class="depth2"><em>(8)</em> DIST is the distance between the two locations, in kilometers.
+[70 FR 19306, Apr. 13, 2005, as amended at 79 FR 72150, Dec. 5, 2014]</p>
+      </div>
+    </div>
+
+    <footer class="usa-footer usa-footer-slim" role="contentinfo">
+    <div class="usa-grid usa-footer-return-to-top">
+      <a href="#">Return to top</a>
+    </div>
+    <div class="usa-footer-primary-section">
+      <div class="usa-grid-full">
+        <h5>Built with ❤.
+          Code available <a href="https://github.com/anthonygarvan/allregs">on Github.
+        </a></h5>
+        <h5>All regulations are from the 2015 Annual Edition.
+          This is a technical demonstration not intended for serious use.</h5
+      </div>
+    </div>
+  </footer>
+  </body>
+</html>

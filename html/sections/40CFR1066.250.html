@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/allregs/css/uswds.min.css">
+    <link rel="stylesheet" href="/allregs/css/style.css">
+  </head>
+  <body>
+
+    <header>
+        <h2 class="title">
+            <a href="/allregs/index.html">Code of Federal Regulations (alpha)</a>
+        </h2>
+    </header>
+
+    <div class="usa-grid">
+      <div class="usa-width-one-whole">
+          <h3>
+                                <a href="/allregs/index.html">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/titles/title40.html">
+                                    Title 40
+                                </a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/parts/40CFR1066.html">Part 1066
+                                </a><span>&nbsp/&nbsp<span>
+                                Sec.  1066.250  Base inertia verification.
+                            </h3>
+                            <p class="depth1"><em>(a)</em> Overview. This section describes how to verify the dynamometer's base inertia.</p><p class="depth1"><em>(b)</em> Scope and frequency. Perform this verification upon initial installation and after major maintenance, such as maintenance that could affect roll inertia.</p><p class="depth1"><em>(c)</em> Procedure. Verify the base inertia using the following procedure:</p><p class="depth2"><em>(1)</em> Warm up the dynamometer according to the dynamometer manufacturer's instructions. Set the dynamometer's road-load inertia to zero, turning off any electrical simulation of road load and inertia so that the base inertia of the dynamometer is the only inertia present. Motor the rolls to 5 mph. Apply a constant force to accelerate the roll at a nominal rate of 1 mph/s. Measure the elapsed time to accelerate from 10 to 40 mph, noting the corresponding speed and time points to the nearest 0.01 mph and 0.01 s. Also determine average force over the measurement interval.</p><p class="depth2"><em>(2)</em> Starting from a steady roll speed of 45 mph, apply a constant force to the roll to decelerate the roll at a nominal rate of 1 mph/s. Measure the elapsed time to decelerate from 40 to 10 mph, noting the corresponding speed and time points to the nearest 0.01 mph and 0.01 s. Also determine average force over the measurement interval.</p><p class="depth2"><em>(3)</em> Repeat the steps in paragraphs (c)(1) and (2) of this section for a total of five sets of results at the nominal acceleration rate and the nominal deceleration rate.</p><p class="depth2"><em>(4)</em> Use good engineering judgment to select two additional acceleration and deceleration rate pairs that cover the middle and upper rates expected during testing. Repeat the steps in paragraphs (c)(1) through (3) of this section at each of these additional acceleration and deceleration rates.</p><p class="depth2"><em>(5)</em> Determine the base inertia, Ib, for each measurement interval using the following equation:[GRAPHIC] [TIFF OMITTED] TR28AP14.067
+Where:
+F = average dynamometer force over the measurement interval as measured</p><p class="depth3">by the dynamometer.vfinal = roll surface speed at the end of the measurement</p><p class="depth3">interval to the nearest 0.01 mph.vinit = roll surface speed at the start of the measurement</p><p class="depth3">interval to the nearest 0.01 mph.[Delta]t= elapsed time during the measurement interval to the nearest</p><p class="depth3">0.01 s.</p><p class="depth3">[GRAPHIC] [TIFF OMITTED] TR28AP14.068</p><p class="depth2"><em>(6)</em> Calculate the base inertia error, Iberror, for each of the thirty measured base inertia values, Ib, by comparing it to the manufacturer's stated base inertia, Ibref, using the following equation:
+
+[GRAPHIC] [TIFF OMITTED] TR28AP14.069
+Example:
+Ibref = 32.96 lbmIbact = 32.90 lbm (from paragraph (c)(5) of this section)[GRAPHIC] [TIFF OMITTED] TR28AP14.070</p><p class="depth2"><em>(7)</em> Determine the base inertia mean value ib, from the ten acceleration and deceleration interval base inertia values for each of the three acceleration/deceleration rates. Then determine the base inertia mean value, ib, from the base inertia values corresponding to acceleration/deceleration rates. Calculate base inertia mean values as described in 40 CFR 1065.602(b)</p><p class="depth2"><em>(8)</em> Calculate the inertia error for the final base inertia mean value from paragraph (c)(7) of this section. Use Eq. 1066.250-2, substituting the final base inertia mean value from paragraph (c)(7) of this section for the individual base inertia.</p><p class="depth1"><em>(d)</em> Performance evaluation. The dynamometer must meet the following specifications to be used for testing under this part:</p><p class="depth2"><em>(1)</em> All base inertia errors determined under paragraph (c)(6) of this section may not exceed 1.0%.</p><p class="depth2"><em>(2)</em> The inertia error for the final base inertia mean value determined under paragraph (c)(8) of this section may not exceed 0.20%.</p>
+      </div>
+    </div>
+
+    <footer class="usa-footer usa-footer-slim" role="contentinfo">
+    <div class="usa-grid usa-footer-return-to-top">
+      <a href="#">Return to top</a>
+    </div>
+    <div class="usa-footer-primary-section">
+      <div class="usa-grid-full">
+        <h5>Built with ❤.
+          Code available <a href="https://github.com/anthonygarvan/allregs">on Github.
+        </a></h5>
+        <h5>All regulations are from the 2015 Annual Edition.
+          This is a technical demonstration not intended for serious use.</h5
+      </div>
+    </div>
+  </footer>
+  </body>
+</html>

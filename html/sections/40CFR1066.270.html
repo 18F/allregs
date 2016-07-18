@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/allregs/css/uswds.min.css">
+    <link rel="stylesheet" href="/allregs/css/style.css">
+  </head>
+  <body>
+
+    <header>
+        <h2 class="title">
+            <a href="/allregs/index.html">Code of Federal Regulations (alpha)</a>
+        </h2>
+    </header>
+
+    <div class="usa-grid">
+      <div class="usa-width-one-whole">
+          <h3>
+                                <a href="/allregs/index.html">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/titles/title40.html">
+                                    Title 40
+                                </a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/parts/40CFR1066.html">Part 1066
+                                </a><span>&nbsp/&nbsp<span>
+                                Sec.  1066.270  Unloaded coastdown verification.
+                            </h3>
+                            <p class="depth1"><em>(a)</em> Overview. Use force measurements to verify the dynamometer's settings based on coastdown procedures.</p><p class="depth1"><em>(b)</em> Scope and frequency. Perform this verification upon initial installation, within 7 days of testing, and after major maintenance.</p><p class="depth1"><em>(c)</em> Procedure. This procedure verifies the dynamometer's settings derived from coastdown testing. For dynamometers that have an automated process for this procedure, perform this evaluation by setting the initial speed, final speed, inertial coefficients, and road-load coefficients as required for each test, using good engineering judgment to ensure that these values properly represent in-use operation. Use the following procedure if your dynamometer does not perform this verification with an automated process:</p><p class="depth2"><em>(1)</em> Warm up the dynamometer as specified by the dynamometer manufacturer.</p><p class="depth2"><em>(2)</em> With the dynamometer in coastdown mode, set the dynamometer inertia for the smallest vehicle weight that you expect to test and set A, B, and C road-load coefficients to values typical of those used during testing. Program the dynamometer to coast down over the dynamometer operational speed range (typically from a speed of 80 mph through a minimum speed at or below 10 mph). Perform at least one coastdown over this speed range, collecting data over each 10 mph interval.</p><p class="depth2"><em>(3)</em> Repeat the steps in paragraph (c)(2) of this section with the dynamometer inertia and road-load coefficients set for the largest vehicle weight that you expect to test.</p><p class="depth2"><em>(4)</em> Determine the average coastdown force, F, for each speed and inertia setting for each of the coastdowns performed using the following equation:[GRAPHIC] [TIFF OMITTED] TR19FE15.025
+Where:
+F = the average force measured during the coastdown for each speed</p><p class="depth3">interval and inertia setting, expressed in lbf [middot] s\2\/</p><p class="depth3">ft and rounded to four significant figures.I = the dynamometer's inertia setting, in lbf [middot] s\2\/ft.vinit = the speed at the start of the coastdown interval,</p><p class="depth3">expressed in ft/s to at least four significant figures.vfinal = the speed at the end of the coastdown interval,</p><p class="depth3">expressed in ft/s to at least four significant figures.t = coastdown time for each speed interval and inertia setting, accurate</p><p class="depth3">to at least 0.01 s.</p><p class="depth3">Example: I = 2000 lbm = 62.16 lbf [middot] s\2\/ftvinit = 25 mph = 36.66 ft/svfinal = 15 mph = 22.0 ft/st = 5.00 s[GRAPHIC] [TIFF OMITTED] TR19FE15.026
+
+
+
+F = 182.2 lbf</p><p class="depth2"><em>(5)</em> Calculate the target value of coastdown force, Fref, based on the applicable dynamometer parameters for each speed interval and inertia setting.</p><p class="depth2"><em>(6)</em> Compare the mean value of the coastdown force measured for each speed interval and inertia setting, Fact, to the corresponding Fref to determine values for coastdown force error, Ferror, using the following equation:[GRAPHIC] [TIFF OMITTED] TR28AP14.080
+[GRAPHIC] [TIFF OMITTED] TR28AP14.081</p><p class="depth1"><em>(d)</em> Performance evaluation. The coastdown force error determined in paragraph (c) of this section may not exceed the following:</p><p class="depth2"><em>(1)</em> For vehicles at or below 20,000 pounds GVWR, calculate Ferrormax for all speed and inertia settings from the following formula:[GRAPHIC] [TIFF OMITTED] TR28AP14.148
+Example:
+Fref = 192 lbfFerrormax (%) = (2.2/192) [middot] 100 = 1.14%</p><p class="depth2"><em>(2)</em> For vehicles above 20,000 pounds GVWR, the maximum allowable error, Ferrormax, for all speed intervals and inertia settings is 1.0% or 39.2 N, whichever is greater.</p><p class="depth1"><em>(e)</em> Remedy for nonconforming dynamometers. If the dynamometer is not able to meet this requirement, diagnose and repair the dynamometer before continuing with emission testing. Diagnosis should include performing the verifications in Sec.  1066.255 and Sec.  1066.260.
+[79 FR 23823, Apr. 28, 2014, as amended at 80 FR 9120, Feb. 19, 2015]</p>
+      </div>
+    </div>
+
+    <footer class="usa-footer usa-footer-slim" role="contentinfo">
+    <div class="usa-grid usa-footer-return-to-top">
+      <a href="#">Return to top</a>
+    </div>
+    <div class="usa-footer-primary-section">
+      <div class="usa-grid-full">
+        <h5>Built with ❤.
+          Code available <a href="https://github.com/anthonygarvan/allregs">on Github.
+        </a></h5>
+        <h5>All regulations are from the 2015 Annual Edition.
+          This is a technical demonstration not intended for serious use.</h5
+      </div>
+    </div>
+  </footer>
+  </body>
+</html>

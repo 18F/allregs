@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/allregs/css/uswds.min.css">
+    <link rel="stylesheet" href="/allregs/css/style.css">
+  </head>
+  <body>
+
+    <header>
+        <h2 class="title">
+            <a href="/allregs/index.html">Code of Federal Regulations (alpha)</a>
+        </h2>
+    </header>
+
+    <div class="usa-grid">
+      <div class="usa-width-one-whole">
+          <h3>
+                                <a href="/allregs/index.html">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/titles/title47.html">
+                                    Title 47
+                                </a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/parts/47CFR80.html">Part 80
+                                </a><span>&nbsp/&nbsp<span>
+                                Sec. 80.1183  Remote control for maneuvering or navigation.
+                            </h3>
+                            <p class="depth0"><em>(a)</em> An on-board station may be used for remote control of maneuvering or navigation control systems aboard the same ship or, where that ship is towing a second ship, aboard the towed ship.</p><p class="depth0"><em>(b)</em> The remote control system transmissions must contain a synchronization signal and a message signal composed of a documentation number group, a company control group, an actuation instruction group, and a termination of transmission group.</p><p class="depth0"><em>(1)</em> The synchronization signal must be the control character ``SYN'', transmitted twice.</p><p class="depth0"><em>(2)</em> The message signal is composed of the following groups:</p><p class="depth0"><em>(i)</em> The documentation number group must be transmitted once and be the ship's U.S. Coast Guard documentation number or, if the ship is not documented, the call sign of the on-board station.</p><p class="depth0"><em>(ii)</em> The company control group, composed of three letters taken from AAA through ZZZ, which must be transmitted one time.</p><p class="depth0"><em>(iiii)</em> The actuation instruction group, composed of two letters taken from AA through ZZ, which must be transmitted one time.</p><p class="depth0"><em>(iv)</em> The termination of transmission group, composed of the control character ``EM'', which must be transmitted twice.</p><p class="depth0"><em>(c)</em> The receiving system must:</p><p class="depth0"><em>(1)</em> Reject any actuation instruction until it recognizes and accepts the company control group.</p><p class="depth0"><em>(2)</em> Reject any company control group until it recognizes and accepts the documentation number group.</p><p class="depth0"><em>(d)</em> The emission employed must be G2D. The provisions applicable to G3E emission are also applicable to G2D emission.</p><p class="depth0"><em>(e)</em> The binary information must be applied to the carrier as frequency-shift keying (FSK) of the standard tones 1070 and 1270 Hz. ``0'' (low) must correspond to 1070 Hz and ``1'' (high) must correspond to 1270 Hz. The signalling rate must be 300 bits per second.</p><p class="depth0"><em>(f)</em> The alphabet employed must be the United States of America Standard Code for Information Interchange (USASCII), contained in the United States of America Standards Institute publication USAS X3.4-1968.</p><p class="depth0"><em>(1)</em> The bit sequence must be least significant bit first to most significant bit (bit 1 through 7), consecutively.</p><p class="depth0"><em>(2)</em> The character structure must consist of 8 bits (seven bits plus one character parity bit) having equal time intervals.</p><p class="depth0"><em>(3)</em> ``Odd'' parity is required.</p><p class="depth0">Mobile-Satellite Stations</p>
+      </div>
+    </div>
+
+    <footer class="usa-footer usa-footer-slim" role="contentinfo">
+    <div class="usa-grid usa-footer-return-to-top">
+      <a href="#">Return to top</a>
+    </div>
+    <div class="usa-footer-primary-section">
+      <div class="usa-grid-full">
+        <h5>Built with ❤.
+          Code available <a href="https://github.com/anthonygarvan/allregs">on Github.
+        </a></h5>
+        <h5>All regulations are from the 2015 Annual Edition.
+          This is a technical demonstration not intended for serious use.</h5
+      </div>
+    </div>
+  </footer>
+  </body>
+</html>

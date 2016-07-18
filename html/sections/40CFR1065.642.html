@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/allregs/css/uswds.min.css">
+    <link rel="stylesheet" href="/allregs/css/style.css">
+  </head>
+  <body>
+
+    <header>
+        <h2 class="title">
+            <a href="/allregs/index.html">Code of Federal Regulations (alpha)</a>
+        </h2>
+    </header>
+
+    <div class="usa-grid">
+      <div class="usa-width-one-whole">
+          <h3>
+                                <a href="/allregs/index.html">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/titles/title40.html">
+                                    Title 40
+                                </a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/parts/40CFR1065.html">Part 1065
+                                </a><span>&nbsp/&nbsp<span>
+                                Sec.  1065.642  SSV, CFV, and PDP molar flow rate calculations.
+                            </h3>
+                            <p class="depth0">This section describes the equations for calculating molar flow rates from various flow meters. After you calibrate a flow meter according to Sec.  1065.640, use the calculations described in this section to calculate flow during an emission test.</p><p class="depth1"><em>(a)</em> PDP molar flow rate. Based upon the speed at which you operate the PDP for a test interval, select the corresponding slope, a1, and intercept, a0, as calculated in Sec.  1065.640, to calculate molar flow rate, n as follows:[GRAPHIC] [TIFF OMITTED] TR28AP14.029
+
+
+
+[GRAPHIC] [TIFF OMITTED] TR28AP14.030
+Example:
+At = 0.01824 m\2\pin = 99.132 kPa = 99132 Pa = 99132 kg/(m [middot] s\2\)Z = 1Mmix = 28.7805 g/mol = 0.0287805 kg/molR = 8.314472 J/(mol [middot] K) = 8.314472 (m\2\ [middot] kg)/(s\2\</p><p class="depth2">[middot] mol [middot] K)Tin = 298.15 KRe# = 7.232 [middot] 10\5\g = 1.399b = 0.8[Delta]p = 2.312 kPaUsing Eq. 1065.640-7,rssv = 0.997Using Eq. 1065.640-6,Cf = 0.274
+
+[GRAPHIC] [TIFF OMITTED] TR28AP14.031</p><p class="depth1"><em>(c)</em> CFV molar flow rate. Some CFV flow meters consist of a single venturi and some consist of multiple venturis, where different combinations of venturis are used to meter different flow rates. If you use multiple venturis and you calibrated each venturi independently to determine a separate discharge coefficient, Cd (or calibration coefficient, Kv), for each venturi, calculate the individual molar flow rates through each venturi and sum all their flow rates to determine n. If you use multiple venturis and you calibrated each combination of venturis, calculate n using the sum of the active venturi throat areas as At, the square root of the sum of the squares of the active venturi throat diameters as dt, and the ratio of the venturi throat to inlet diameters as the ratio of the square root of the sum of the active venturi throat diameters (dt) to the diameter of the common entrance to all the venturis (D).</p><p class="depth2"><em>(1)</em> To calculate the molar flow rate through one venturi or one combination of venturis, use its respective mean Cd and other constants you determined according to Sec.  1065.640 and calculate its molar flow rate n during an emission test, as follows:
+
+[GRAPHIC] [TIFF OMITTED] TR28AP14.032
+[GRAPHIC] [TIFF OMITTED] TR28AP14.033</p><p class="depth2"><em>(2)</em> To calculate the molar flow rate through one venturi or a combination of venturis, you may use its respective mean, Kv, and other constants you determined according to Sec.  1065.640 and calculate its molar flow rate during an emission test. Note that if you follow the permissible ranges of dilution air dewpoint versus calibration air dewpoint in Table 3 of Sec.  1065.640, you may set Mmix-cal and Mmix equal to 1. Calculate n as follows:
+
+[GRAPHIC] [TIFF OMITTED] TR28AP14.034
+Vstdref = volume flow rate of the standard at reference</p><p class="depth3">conditions of 293.15 K and 101.325 kPa.Tin-cal = venturi inlet temperature during calibration.Pin-cal = venturi inlet pressure during calibration.Mmix-cal = molar mass of gas mixture used during calibration.Mmix = molar mass of gas mixture during the emission test</p><p class="depth3">calculated using Equation 1065.640-9.
+Example:
+Vstdref = 0.4895 m\3\Tin-cal = 302.52 KPin-cal = 99.654 kPa = 99654 Pa = 99654 kg/(m [middot] s\2\)pin = 98.836 kPa = 98836 Pa = 98836 kg/(m [middot] s\2\)pstd = 101.325 kPa = 101325 Pa = 101325 kg/(m [middot] s\2\)Mmix-cal = 28.9656 g/mol = 0.0289656 kg/molMmix = 28.7805 g/mol = 0.0287805 kg/molTin = 353.15 KTstd = 293.15 KR = 8.314472 J/(mol [middot] K) = 8.314472 (m\2\ [middot] kg)/(s\2\</p><p class="depth3">[middot] mol [middot] K)</p><p class="depth3">[GRAPHIC] [TIFF OMITTED] TR28AP14.035</p><p class="depth3">[79 FR 23792, Apr. 28,2014]</p>
+      </div>
+    </div>
+
+    <footer class="usa-footer usa-footer-slim" role="contentinfo">
+    <div class="usa-grid usa-footer-return-to-top">
+      <a href="#">Return to top</a>
+    </div>
+    <div class="usa-footer-primary-section">
+      <div class="usa-grid-full">
+        <h5>Built with ❤.
+          Code available <a href="https://github.com/anthonygarvan/allregs">on Github.
+        </a></h5>
+        <h5>All regulations are from the 2015 Annual Edition.
+          This is a technical demonstration not intended for serious use.</h5
+      </div>
+    </div>
+  </footer>
+  </body>
+</html>

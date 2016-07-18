@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/allregs/css/uswds.min.css">
+    <link rel="stylesheet" href="/allregs/css/style.css">
+  </head>
+  <body>
+
+    <header>
+        <h2 class="title">
+            <a href="/allregs/index.html">Code of Federal Regulations (alpha)</a>
+        </h2>
+    </header>
+
+    <div class="usa-grid">
+      <div class="usa-width-one-whole">
+          <h3>
+                                <a href="/allregs/index.html">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/titles/title40.html">
+                                    Title 40
+                                </a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/parts/40CFR1037.html">Part 1037
+                                </a><span>&nbsp/&nbsp<span>
+                                Sec.  1037.550  Special procedures for testing hybrid systems.
+                            </h3>
+                            <p class="depth0">This section describes the procedure for simulating a chassis test with a pre-transmission or post-transmission hybrid system for A to B testing. These procedures may also be used to perform A to B testing with non-hybrid systems.</p><p class="depth1"><em>(a)</em> Set up the engine according to 40 CFR 1065.110 to account for work inputs and outputs and accessory work.</p><p class="depth1"><em>(b)</em> Collect CO2 emissions while operating the system over the test cycles specified in Sec.  1037.510.</p><p class="depth1"><em>(c)</em> Collect and measure emissions as described in 40 CFR part 1066. Calculate emission rates in grams per ton-mile without rounding. Determine values for A, B, C, and M for the vehicle being simulated as specified in 40 CFR part 1066. If you will apply an improvement factor or test results to multiple vehicle configurations, use values of A, B, C, M, kd, and r that represent the vehicle configuration with the smallest potential reduction in greenhouse gas emissions as a result of the hybrid capability.</p><p class="depth1"><em>(d)</em> Calculate the transmission output shaft's angular speed target for the driver model, fnref,driver, from the linear speed associated with the vehicle cycle using the following equation:[GRAPHIC] [TIFF OMITTED] TR17JN13.001
+Where:
+vcyclei = vehicle speed of the test cycle for each point, i, starting</p><p class="depth2">from i = 1.kd = final drive ratio (the angular speed of the transmission output</p><p class="depth2">shaft divided by the angular speed of the drive axle), as</p><p class="depth2">declared by the manufacturer.r = radius of the loaded tires, as declared by the manufacturer.</p><p class="depth1"><em>(e)</em> Use speed control with a loop rate of at least 100 Hz to program the dynamometer to follow the test cycle, as follows:</p><p class="depth2"><em>(1)</em> Calculate the transmission output shaft's angular speed target for the dynamometer, fnref,dyno, from the measured linear speed at the dynamometer rolls using the following equation:[GRAPHIC] [TIFF OMITTED] TR17JN13.002
+Where:
+
+[GRAPHIC] [TIFF OMITTED] TR17JN13.003
+T = instantaneous measured torque at the transmission output shaft.Fbrake = instantaneous brake force applied by the driver model to add</p><p class="depth3">force to slow down the vehicle.t = elapsed time in the driving schedule as measured by the dynamometer,</p><p class="depth3">in seconds.</p><p class="depth2"><em>(2)</em> For each test, validate the measured transmission output shaft's speed with the corresponding reference values according to 40 CFR 1065.514(e). You may delete points when the vehicle is stopped. Perform the validation based on speed values at the transmission output shaft. For steady-state tests (55 mph and 65 mph cruise), apply cycle-validation criteria by treating the sampling periods from the two tests as a continuous sampling period. Perform this validation based on the following parameters:</p><p class="depth3">Table 1 of Sec.   1037.550--Statistical Criteria for Validating Duty</p><p class="depth3">Cycles------------------------------------------------------------------------</p><p class="depth3">Parameter                          Speed control------------------------------------------------------------------------Slope, a1.................................  0.950 <=a1 <=1.030.Absolute value of intercept,                <=2.0% of maximum test</p><p class="depth3">[verbarlm]a0[verbarlm].                     speed.Standard error of estimate, SEE...........  <=5% of maximum test speed.Coefficient of determination, r\2\........  =0.970.------------------------------------------------------------------------</p><p class="depth1"><em>(f)</em> Send a brake signal when throttle position is equal to zero and vehicle speed is greater than the reference vehicle speed from the test cycle. Set a delay before changing the brake state to prevent the brake signal from dithering, consistent with good engineering judgment.</p><p class="depth1"><em>(g)</em> The driver model should be designed to follow the cycle as closely as possible and must meet the requirements of Sec.  1037.510 for steady-state testing and 40 CFR 1066.430(e) for transient testing. The driver model should be designed so that the brake and throttle are not applied at the same time.</p><p class="depth1"><em>(h)</em> Correct for the net energy change of the energy storage device as described in 40 CFR 1066.501.</p><p class="depth0"><em>(i)</em> Follow the provisions of Sec.  1037.510 to weight the cycle results and Sec.  1037.615 to calculate improvement factors and benefits for advanced technologies.
+[76 FR 57398, Sept. 15, 2011, as amended at 78 FR 36393, June 17, 2013]</p>
+      </div>
+    </div>
+
+    <footer class="usa-footer usa-footer-slim" role="contentinfo">
+    <div class="usa-grid usa-footer-return-to-top">
+      <a href="#">Return to top</a>
+    </div>
+    <div class="usa-footer-primary-section">
+      <div class="usa-grid-full">
+        <h5>Built with ❤.
+          Code available <a href="https://github.com/anthonygarvan/allregs">on Github.
+        </a></h5>
+        <h5>All regulations are from the 2015 Annual Edition.
+          This is a technical demonstration not intended for serious use.</h5
+      </div>
+    </div>
+  </footer>
+  </body>
+</html>

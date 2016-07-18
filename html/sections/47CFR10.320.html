@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/allregs/css/uswds.min.css">
+    <link rel="stylesheet" href="/allregs/css/style.css">
+  </head>
+  <body>
+
+    <header>
+        <h2 class="title">
+            <a href="/allregs/index.html">Code of Federal Regulations (alpha)</a>
+        </h2>
+    </header>
+
+    <div class="usa-grid">
+      <div class="usa-width-one-whole">
+          <h3>
+                                <a href="/allregs/index.html">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/titles/title47.html">
+                                    Title 47
+                                </a><span>&nbsp/&nbsp</span>
+                                <a href="/allregs/html/parts/47CFR10.html">Part 10
+                                </a><span>&nbsp/&nbsp<span>
+                                Sec. 10.320  Provider alert gateway requirements.
+                            </h3>
+                            <p class="depth0">This section specifies the functions that each Participating Commercial Mobile Service provider is required to support and perform at its CMS provider gateways.</p><p class="depth1"><em>(a)</em> General. The CMS provider gateway must provide secure, redundant, and reliable connections to receive Alert Messages from the Federal alert gateway. Each CMS provider gateway must be identified by a unique IP address or domain name.</p><p class="depth1"><em>(b)</em> Authentication and validation. The CMS provider gateway must authenticate interactions with the Federal alert gateway, and validate Alert Message integrity and parameters. The CMS provider gateway must provide an error message immediately to the Federal alert gateway if a validation fails.</p><p class="depth1"><em>(c)</em> Security. The CMS provider gateway must support standardized IP-based security mechanisms such as a firewall, and support the defined WEA ``C'' interface and associated protocols between the Federal alert gateway and the CMS provider gateway.</p><p class="depth1"><em>(d)</em> Geographic targeting. The CMS provider gateway must determine whether the provider has elected to transmit an Alert Message within a specified alert area and, if so, map the Alert Message to an associated set of transmission sites.</p><p class="depth1"><em>(e)</em> Message management--(1) Formatting. The CMS provider gateway is not required to perform any formatting, reformatting, or translation of an Alert Message, except for transcoding a text, audio, video, or multimedia file into the format supported by mobile devices.</p><p class="depth2"><em>(1)</em> Formatting. The CMS provider gateway is not required to perform any formatting, reformatting, or translation of an Alert Message, except for transcoding a text, audio, video, or multimedia file into the format supported by mobile devices.</p><p class="depth2"><em>(2)</em> Reception. The CMS provider gateway must support a mechanism to stop and start Alert Message deliveries from the Federal alert gateway to the CMS provider gateway.</p><p class="depth2"><em>(3)</em> Prioritization. The CMS provider gateway must process an Alert Message on a first in-first out basis except for Presidential Alerts, which must be processed before all non-Presidential alerts.</p><p class="depth2"><em>(4)</em> Distribution. A Participating CMS provider must deploy one or more CMS provider gateways to support distribution of Alert Messages and to manage Alert Message traffic.</p><p class="depth2"><em>(5)</em> Retransmission. The CMS provider gateway must manage and execute Alert Message retransmission, and support a mechanism to manage congestion within the CMS provider's infrastructure.</p><p class="depth1"><em>(f)</em> CMS provider profile. The CMS provider gateway will provide profile information on the CMS provider for the Federal alert gateway to maintain at the Federal alert gateway. This profile information must be provided by an authorized CMS provider representative to the Federal alert gateway administrator. The profile information must include the data listed in Table 10.320(f) and must comply with the following procedures:</p><p class="depth2"><em>(1)</em> The information must be provided 30 days in advance of the date when the CMS provider begins to transmit WEA alerts.</p><p class="depth2"><em>(2)</em> Updates of any CMS provider profiles must be provided in writing at least 30 days in advance of the effective change date.</p><p class="depth3">Table 10.320(f)--CMSP Profile on Federal Alert Gateway------------------------------------------------------------------------</p><p class="depth3">Parameter</p><p class="depth3">Profile parameter             election           Description------------------------------------------------------------------------CMSP Name.....................  .................  Unique identification</p><p class="depth3">of CMSP.CMSP gateway Address..........  IP address or</p><p class="depth3">Domain Name.</p><p class="depth3">Alternate IP       Optional and subject</p><p class="depth3">address.           to implementation.Geo-Location Filtering........  .               CMAM issued in the</p><p class="depth3">listed states will</p><p class="depth3">be sent to the CMSP</p><p class="depth3">gateway.</p><p class="depth3">If ``no'', all CMAM</p><p class="depth3">will be sent to the</p><p class="depth3">CMSP gateway.</p><p class="depth3">If yes, list of states........  CMAC Geocode for   List can be state</p><p class="depth3">state.             name or abbreviated</p><p class="depth3">state name.------------------------------------------------------------------------
+
+[73 FR 43117, July 24, 2008, as amended at 78 FR 16808, Mar. 19, 2013]</p>
+      </div>
+    </div>
+
+    <footer class="usa-footer usa-footer-slim" role="contentinfo">
+    <div class="usa-grid usa-footer-return-to-top">
+      <a href="#">Return to top</a>
+    </div>
+    <div class="usa-footer-primary-section">
+      <div class="usa-grid-full">
+        <h5>Built with ❤.
+          Code available <a href="https://github.com/anthonygarvan/allregs">on Github.
+        </a></h5>
+        <h5>All regulations are from the 2015 Annual Edition.
+          This is a technical demonstration not intended for serious use.</h5
+      </div>
+    </div>
+  </footer>
+  </body>
+</html>
