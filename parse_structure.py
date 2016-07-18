@@ -38,7 +38,7 @@ class Parser:
 
     def debug(self, sections):
         for i, section in enumerate(sections):
-            if i > 50:
+            if i > 100:
                 print('stopped (debug mode on)')
                 break
             yield section
