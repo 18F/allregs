@@ -66,7 +66,7 @@ class Parser:
             section_start = re.match('(?:Sec\.\s+)?([0-9-]+[a-z]?)\.([0-9-]+)  [A-Z]',
                                      line)
 
-            part_match_line = re.match("\s*PART [0-9]+[a-z]?[_\s]+" +
+            part_match_line = re.match("\s*PART [0-9-]+[a-z]?[_\s]+" +
                                        "(:?Mc)?(:?8\(a\))?" +
                                        "(?:C\[Ocirc\]TE)?" +
                                        "(?:DoD)?" +
@@ -77,7 +77,7 @@ class Parser:
                 full_part_str = line
                 for i in range(10):
                     full_part_str = full_part_str.replace('\n', ' ')
-                    part_match = re.match("\s*PART ([0-9]+[a-z]?)[_\s]+" +
+                    part_match = re.match("\s*PART ([0-9-]+[a-z]?)[_\s]+" +
                                           "((:?Mc)?(:?8\(a\))?" +
                                           "(?:C\[Ocirc\]TE)?" +
                                           "(?:DoD)?" +
