@@ -12,6 +12,7 @@ class Parser:
     def __init__(self):
         dummy_processor = RegtextParagraphProcessor()
         self.additional_constraints = dummy_processor.additional_constraints()
+        self.relaxed_constraints = dummy_processor.relaxed_constraints()
 
         self.typos = {"50": {"Sec. 263.53  Other funds.": "Sec. 253.53  Other funds."},
                       "12": {"Part 1221_MARGIN AND CAPITAL REQUIREMENTS FOR COVERED SWAP ENTITIES":
@@ -37,7 +38,7 @@ class Parser:
 
     def debug(self, sections):
         for i, section in enumerate(sections):
-            if i > 10:
+            if i > 50:
                 print('stopped (debug mode on)')
                 break
             yield section
@@ -62,9 +63,10 @@ class Parser:
         last_line = ''
 
         for line in lines:
-            section_start = re.match('Sec\.\s+([0-9]+)\.([0-9]+)  [A-Z]', line)
+            section_start = re.match('(?:Sec\.\s+)?([0-9]+[a-z]?)\.([0-9-]+)  [A-Z]',
+                                     line)
 
-            part_match_line = re.match("\s*PART [0-9]+[_\s]+" +
+            part_match_line = re.match("\s*PART [0-9]+[a-z]?[_\s]+" +
                                        "(:?Mc)?(:?8\(a\))?" +
                                        "(?:C\[Ocirc\]TE)?" +
                                        "(?:DoD)?" +
@@ -75,7 +77,7 @@ class Parser:
                 full_part_str = line
                 for i in range(10):
                     full_part_str = full_part_str.replace('\n', ' ')
-                    part_match = re.match("\s*PART ([0-9]+)[_\s]+" +
+                    part_match = re.match("\s*PART ([0-9]+[a-z]?)[_\s]+" +
                                           "((:?Mc)?(:?8\(a\))?" +
                                           "(?:C\[Ocirc\]TE)?" +
                                           "(?:DoD)?" +
@@ -119,7 +121,7 @@ class Parser:
                                                part is not last_part):
                 section_header = line + lines.next()[2]
                 section_header = section_header.replace('\n', ' ')
-                match = re.match('Sec.\s+{0}.{1}+\s+([^\.]+)'
+                match = re.match('(?:Sec.\s+)?{0}.{1}+\s+([^\.]+)'
                                  .format(part, section),
                                  section_header)
 
@@ -157,7 +159,7 @@ class Parser:
             if len(next_markers) > 0:
                 next_marker = next_markers[0]
             else:
-                next_marker = None
+                next_marker = "MARKERLESS"
         else:
             next_marker = None
         markers = get_markers(paragraph, next_marker)
@@ -198,6 +200,8 @@ class Parser:
 
         if self.markers_are_valid(markers):
             solution = derive_depths(markers, self.additional_constraints)
+            if not solution:
+                solution = derive_depths(markers, self.relaxed_constraints)
         else:
             solution = None
 

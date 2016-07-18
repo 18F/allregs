@@ -14,7 +14,8 @@ s.mount('https://', HTTPAdapter(max_retries=retries))
 
 
 volume_url = 'https://www.gpo.gov/fdsys/pkg/CFR-{0}-title{1}-vol{2}/html/CFR-{0}-title{1}-vol{2}.htm'
-this_year = datetime.now().year
+# this_year = datetime.now().year
+this_year = 2015
 
 for title in range(1, 51):
     title_text = ''
