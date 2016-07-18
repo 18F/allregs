@@ -63,7 +63,7 @@ class Parser:
         last_line = ''
 
         for line in lines:
-            section_start = re.match('(?:Sec\.\s+)?([0-9]+[a-z]?)\.([0-9-]+)  [A-Z]',
+            section_start = re.match('(?:Sec\.\s+)?([0-9-]+[a-z]?)\.([0-9-]+)  [A-Z]',
                                      line)
 
             part_match_line = re.match("\s*PART [0-9]+[a-z]?[_\s]+" +
@@ -121,10 +121,8 @@ class Parser:
                                                part is not last_part):
                 section_header = line + lines.next()[2]
                 section_header = section_header.replace('\n', ' ')
-                match = re.match('(?:Sec.\s+)?{0}.{1}+\s+([^\.]+)'
-                                 .format(part, section),
-                                 section_header)
-
+                match_section_regex = '(?:Sec\.\s+)?{0}.{1}+\s+([^\.]+)'.format(part, section)
+                match = re.match(match_section_regex, section_header)
                 section_description = re.sub("\s+", " ",
                                              match.group(1).strip())
 
@@ -395,6 +393,7 @@ class Parser:
                 filenames.append('data/text/' + filename)
 
         titles = []
+        print(filenames)
         self.sections_processed = 0
         self.section_failures = 0
         for filename in filenames:
