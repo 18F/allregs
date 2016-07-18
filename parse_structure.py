@@ -381,7 +381,7 @@ class Parser:
             if title >= title_start and title <= title_end:
                 filenames.append('data/text/' + filename)
 
-        titles = [self.get_title for filename in filenames]
+        titles = [self.get_title(filename) for filename in filenames]
 
         self.write_index(titles)
 
@@ -456,6 +456,7 @@ if __name__ == "__main__":
     title_end = 50
     part_start = None
     part_end = None
+    title_only = False
     for arg in sys.argv:
         if arg == '--debug':
             debug = True
@@ -467,4 +468,10 @@ if __name__ == "__main__":
             part_start = int(arg.split('=')[1])
         if arg.startswith('--part-end='):
             part_end = int(arg.split('=')[1])
-    parser.run(title_start, title_end, debug, part_start, part_end)
+        if arg.startswith('--title-only'):
+            title_only = True
+
+    if title_only:
+        parser.get_index_page(1, 50)
+    else:
+        parser.run(title_start, title_end, debug, part_start, part_end)
