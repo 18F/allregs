@@ -200,8 +200,8 @@ class Parser:
 
         if self.markers_are_valid(markers):
             solution = derive_depths(markers, self.additional_constraints)
-            if not solution:
-                solution = derive_depths(markers, self.relaxed_constraints)
+            # if not solution: # still stall out sometimes
+            #    solution = derive_depths(markers, self.relaxed_constraints)
         else:
             solution = None
 
