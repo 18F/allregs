@@ -373,7 +373,7 @@ class Parser:
 
     def get_index_page(self, title_start, title_end):
         filenames = []
-        for filename in os.listdir('data/text'):
+        for filename in sorted(os.listdir('data/text')):
             title = int(re.search("([0-9]+)CFR", filename).group(1))
 
             if title >= title_start and title <= title_end:
