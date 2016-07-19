@@ -1,5 +1,4 @@
 requests
 beautifulsoup4
 stevedore
-joblib
 -e git+git@github.com:eregs/regulations-parser.git#egg=regulations-parser
