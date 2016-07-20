@@ -231,11 +231,11 @@ class Parser:
         par_html = '<p class="depth{0}">{1}</p>'
 
         title_subheader = """<h3>
-                                <a href="/allregs/index.html">CFR</a><span>&nbsp/&nbsp</span>
-                                <a href="/allregs/html/titles/title{0}.html">
+                                <a href="/index.html">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/html/titles/title{0}.html">
                                     Title {0}
                                 </a><span>&nbsp/&nbsp</span>
-                                <a href="/allregs/html/parts/{0}CFR{1}.html">Part {1}
+                                <a href="/html/parts/{0}CFR{1}.html">Part {1}
                                 </a><span>&nbsp/&nbsp<span>
                                 {2}
                             </h3>
@@ -260,8 +260,8 @@ class Parser:
         table_boilerplate = open('table.tmpl.html').read()
 
         title_subheader = """<h3>
-                                <a href="/allregs/index.html">CFR</a><span>&nbsp/&nbsp</span>
-                                <a href="/allregs/html/titles/title{0}.html">
+                                <a href="/index.html">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="/html/titles/title{0}.html">
                                     Title {0}
                                 </a><span>&nbsp/&nbsp</span>
                                 Part {1}: {2}
@@ -270,7 +270,7 @@ class Parser:
                                 title[0], part[0], part[1])
         section_data_row = """
                 <tr>
-                  <td scope="row"><a href="/allregs/html/sections/{0}CFR{1}.{2}.html">
+                  <td scope="row"><a href="/html/sections/{0}CFR{1}.{2}.html">
                         Section {1}.{2}
                         </a>
                   </td>
@@ -299,13 +299,13 @@ class Parser:
         table_boilerplate = open('table.tmpl.html').read()
 
         title_subheader = """<h3>
-                                <a href="/allregs/index.html">CFR</a> /
+                                <a href="/index.html">CFR</a> /
                                 Title {0}: {1}</h3>
                             """.format(
                                 title[0], title[1])
         part_data_row = """
                 <tr>
-                  <td scope="row"><a href="/allregs/html/parts/{0}CFR{1}.html">Part {1}
+                  <td scope="row"><a href="/html/parts/{0}CFR{1}.html">Part {1}
                   </a></td>
                   <td scope="row">{2}</td>
                 </tr>
@@ -331,7 +331,7 @@ class Parser:
 
         title_data_row = """
                 <tr>
-                  <th scope="row"><a href="/allregs/html/titles/title{0}.html">Title {0}</a></th>
+                  <th scope="row"><a href="/html/titles/title{0}.html">Title {0}</a></th>
                   <td>{1}</td>
                 </tr>
                 """
