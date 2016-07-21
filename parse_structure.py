@@ -175,14 +175,13 @@ class Parser:
         if not markers:
             subsections.append(('MARKERLESS', paragraph))
         else:
-            tail = paragraph
-            for marker in markers:
-                    head, tail = self.split_text_by_marker(marker, tail)
-                    subsections.append((marker, tail))
+            marker_regex = ".*" + "(\(%s\).*)"*len(markers) % tuple(markers)
+            match = re.match(marker_regex, paragraph, re.S)
+            subsections.extend(zip(markers, match.groups()))
         return subsections
 
     def get_subsections(self, section):
-        paragraphs = [re.sub(r"\n(\S)", r"\1", p.strip())
+        paragraphs = [re.sub(r"\n(\S)", r"\1", p.replace('\n', " ").strip())
                       for p in re.split("\n +", section[2])]
         subsections = []
         last_paragraph = None
