@@ -25,14 +25,16 @@ class Parser:
     def start_at_part(self, sections, part_start):
         started = False
         for section in sections:
-            if int(section[0]) >= int(part_start):
+            section_num = re.match("([0-9]+)", section[0]).group(1)
+            if int(section_num) >= int(part_start):
                 started = True
             if started:
                 yield section
 
     def end_at_part(self, sections, end_part):
         for section in sections:
-            if int(section[0]) > int(end_part):
+            section_num = re.match("([0-9]+)", section[0]).group(1)
+            if int(section_num) > int(end_part):
                 break
             yield section
 
@@ -67,11 +69,11 @@ class Parser:
                                      line)
 
             part_match_line = re.match("\s*PART [0-9-]+[a-z]?[_\s]+" +
-                                       "(:?Mc)?(:?8\(a\))?" +
+                                       "(?:Mc)?(:?8\(a\))?" +
                                        "(?:C\[Ocirc\]TE)?" +
                                        "(?:DoD)?" +
                                        "[^a-z]{5}" +
-                                       "(:?\[RESERVED\])?", line)
+                                       "(?:\[RESERVED\])?", line)
             part_match = False
             if part_match_line:
                 full_part_str = line
@@ -81,18 +83,24 @@ class Parser:
                                           "((:?Mc)?(:?8\(a\))?" +
                                           "(?:C\[Ocirc\]TE)?" +
                                           "(?:DoD)?" +
-                                          "(?:[^a-z]{5})?.*)(:?(:?\[RESERVED\])|" +
-                                          "(:?\-\-)|(:?Subpart)|" +
-                                          "(:?Authority)|(:?Sec\.))",
+                                          "(?:[^a-z]{5})?.*)" +
+                                          "(?:(?:\[RESERVED\])"
+                                          "|(:?\-\-)|" +
+                                          "(?:Subpart)|" +
+                                          "(?:Authority)|(?:Sec\.))",
                                           full_part_str, re.S)
                     if part_match:
                         break
                     full_part_str += lines.next()
                 if part_match:
-                    description = re.sub("\s+", " ", part_match.group(2))\
-                                    .title().strip()
-                    self.parts.append((part_match.group(1),
-                                      description))
+                    if "[RESERVED]" in full_part_str:
+                        self.parts.append((part_match.group(1),
+                                          '[Reserved]'))
+                    else:
+                        description = re.sub("\s+", " ", part_match.group(2))\
+                                        .title().strip()
+                        self.parts.append((part_match.group(1),
+                                          description))
                 else:
                     print full_part_str
 
@@ -115,6 +123,8 @@ class Parser:
     def yield_sections(self, lines):
         last_section = None
         last_part = None
+        last_section_description = None
+        section_description = None
         text = ''
         for part, section, line in lines:
             if last_section and last_part and (section is not last_section or
@@ -129,17 +139,18 @@ class Parser:
                 if last_part not in self.sections:
                     self.sections[last_part] = [(last_part,
                                                  last_section,
-                                                 section_description)]
+                                                 last_section_description)]
                 else:
                     self.sections[last_part].append((last_part,
                                                      last_section,
-                                                     section_description))
+                                                     last_section_description))
 
                 yield (last_part, last_section, text)
                 text = ''
             text += line
             last_section = section
             last_part = part
+            last_section_description = section_description
 
     def split_text_by_marker(self, marker, text):
         regex = "(\(\s?{}\s?\))".format(marker)
@@ -227,15 +238,15 @@ class Parser:
             yield [section[0], section[1], result]
 
     def render_sections(self, sections):
-        section_html = open('master.tmpl.html').read()
+        master_html = open('master.tmpl.html').read()
         par_html = '<p class="depth{0}">{1}</p>'
 
         title_subheader = """<h3>
-                                <a href="/index.html">CFR</a><span>&nbsp/&nbsp</span>
-                                <a href="/html/titles/title{0}.html">
+                                <a href="../../index.html">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="../titles/title{0}.html">
                                     Title {0}
                                 </a><span>&nbsp/&nbsp</span>
-                                <a href="/html/parts/{0}CFR{1}.html">Part {1}
+                                <a href="../parts/{0}CFR{1}.html">Part {1}
                                 </a><span>&nbsp/&nbsp<span>
                                 {2}
                             </h3>
@@ -252,7 +263,7 @@ class Parser:
                     formatted_paragraph = re.sub(r"^(\(\S+\))", r"<em>\1</em>",
                                                  subsection[2])
                     content += par_html.format(subsection[0], formatted_paragraph)
-            rendered = section_html.format(content)
+            rendered = master_html.format('../../', content)
             yield (section[0], section[1], rendered)
 
     def write_part(self, title, part, sections):
@@ -260,8 +271,8 @@ class Parser:
         table_boilerplate = open('table.tmpl.html').read()
 
         title_subheader = """<h3>
-                                <a href="/index.html">CFR</a><span>&nbsp/&nbsp</span>
-                                <a href="/html/titles/title{0}.html">
+                                <a href="../../index.html">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="../titles/title{0}.html">
                                     Title {0}
                                 </a><span>&nbsp/&nbsp</span>
                                 Part {1}: {2}
@@ -270,7 +281,7 @@ class Parser:
                                 title[0], part[0], part[1])
         section_data_row = """
                 <tr>
-                  <td scope="row"><a href="/html/sections/{0}CFR{1}.{2}.html">
+                  <td scope="row"><a href="../sections/{0}CFR{1}.{2}.html">
                         Section {1}.{2}
                         </a>
                   </td>
@@ -285,7 +296,7 @@ class Parser:
 
         content = title_subheader + table_boilerplate.format('Section No.',
                                                              rows)
-        html = master_html.format(content)
+        html = master_html.format('../../', content)
 
         filename = 'html/parts/{0}CFR{1}.html'.format(title[0], part[0])
         f = open(filename, 'w')
@@ -299,24 +310,29 @@ class Parser:
         table_boilerplate = open('table.tmpl.html').read()
 
         title_subheader = """<h3>
-                                <a href="/index.html">CFR</a> /
+                                <a href="../../index.html">CFR</a> /
                                 Title {0}: {1}</h3>
                             """.format(
                                 title[0], title[1])
         part_data_row = """
                 <tr>
-                  <td scope="row"><a href="/html/parts/{0}CFR{1}.html">Part {1}
+                  <td scope="row"><a href="../parts/{0}CFR{1}.html">Part {1}
                   </a></td>
                   <td scope="row">{2}</td>
                 </tr>
                 """
+        part_data_reserved = """<tr><td scope="row">Part {0}</td>
+                                 <td scope="row">{1}</td></tr>"""
 
         rows = ''
         for part in parts:
-            rows += part_data_row.format(title[0], part[0], part[1])
+            if "[Reserved]" not in part[1]:
+                rows += part_data_row.format(title[0], part[0], part[1])
+            else:
+                rows += part_data_reserved.format(part[0], part[1])
 
         content = title_subheader + table_boilerplate.format('Part No.', rows)
-        html = master_html.format(content)
+        html = master_html.format('../../', content)
 
         filename = 'html/titles/title%s.html' % title[0]
         f = open(filename, 'w')
@@ -331,7 +347,7 @@ class Parser:
 
         title_data_row = """
                 <tr>
-                  <th scope="row"><a href="/html/titles/title{0}.html">Title {0}</a></th>
+                  <th scope="row"><a href="html/titles/title{0}.html">Title {0}</a></th>
                   <td>{1}</td>
                 </tr>
                 """
@@ -341,7 +357,7 @@ class Parser:
             rows += title_data_row.format(title[0], title[1])
 
         content = table_boilerplate.format('Title No.', rows)
-        html = master_html.format(content)
+        html = master_html.format('', content)
 
         filename = 'index.html'
         f = open(filename, 'w')
