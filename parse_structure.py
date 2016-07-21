@@ -175,7 +175,7 @@ class Parser:
         if not markers:
             subsections.append(('MARKERLESS', paragraph))
         else:
-            marker_regex = ".*" + "(\(%s\).*)"*len(markers) % tuple(markers)
+            marker_regex = ".*" + "(\( ?%s ?\).*)"*len(markers) % tuple(markers)
             match = re.match(marker_regex, paragraph, re.S)
             subsections.extend(zip(markers, match.groups()))
         return subsections
