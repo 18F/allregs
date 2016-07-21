@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/uswds.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+  <body>
+
+    <header>
+        <h2 class="title">
+            <a href="../../index.html">Code of Federal Regulations (alpha)</a>
+        </h2>
+    </header>
+
+    <div class="usa-grid">
+      <div class="usa-width-one-whole">
+          <h3>
+                                <a href="../../index.html">CFR</a><span>&nbsp/&nbsp</span>
+                                <a href="../titles/title7.html">
+                                    Title 7
+                                </a><span>&nbsp/&nbsp</span>
+                                <a href="../parts/7CFR42.html">Part 42
+                                </a><span>&nbsp/&nbsp<span>
+                                Sec. 42.132  Determining cumulative sum values.
+                            </h3>
+                            <p class="depth1"><em>(a)</em> The parameters for the on-line cumulative sum sampling plans for  AQL's applicable to origin inspection are as follows:  --------------------------------------------------------------------------------------------------------------------------------------------------------</p><p class="depth2">Type of inspection</p><p class="depth2">----------------------------------------------------------------------------------------</p><p class="depth2">Acceptable quality levels                                Normal                       Tightened                     Reduced</p><p class="depth2">----------------------------------------------------------------------------------------</p><p class="depth2">T         L         S         T         L         S         T         L        S -------------------------------------------------------------------------------------------------------------------------------------------------------- 0.25...........................................................      0.05      0.95      0.35       0.1       0.9       0.3       0         0          0 1.5............................................................      0.5       2         1          0.8       1.6       0.4       0.5       0.5        0 6.5............................................................      2         3         1          2.5       3         1         1         2          1 --------------------------------------------------------------------------------------------------------------------------------------------------------</p><p class="depth1"><em>(b)</em> At the beginning of the basic inspection period, the CuSum value  is set equal to the starting value (``S'') for the specified CuSum plan.  The CuSum value is then determined for each consecutive subgroup as  follows:</p><p class="depth2"><em>(1)</em> Add the number of defects for the present subgroup to the CuSum  value of the previous subgroup.</p><p class="depth2"><em>(2)</em> Subtract the subgroup tolerance (``T'').</p><p class="depth2"><em>(3)</em> The CuSum value is reset in the following situations; however,  determine portion of production acceptability (see Sec. 42.133) prior  to resetting the CuSum value:</p><p class="depth3"><em>(i)</em> Reset the CuSum value to zero (0) if the CuSum value is less  than zero (0).</p><p class="depth3"><em>(ii)</em> Reset the CuSum value to the acceptance limit (``L'') if the  CuSum value exceeds the acceptance limit (``L'').</p>
+      </div>
+    </div>
+
+    <footer class="usa-footer usa-footer-slim" role="contentinfo">
+    <div class="usa-grid usa-footer-return-to-top">
+      <a href="#">Return to top</a>
+    </div>
+    <div class="usa-footer-primary-section">
+      <div class="usa-grid-full">
+        <h5>Built with ❤ by <a href="https://18f.gsa.gov/">18F</a>.
+          Code available <a href="https://github.com/18F/allregs">on Github.
+        </a></h5>
+        <h5>All regulations are from the 2015 Annual Edition.
+          This is a technical demonstration not intended for serious use.</h5>
+      </div>
+    </div>
+  </footer>
+  </body>
+</html>
