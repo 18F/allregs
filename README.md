@@ -43,9 +43,10 @@ Note that title 35 no longer exists. It is not a data error. The title regulated
 the panama canal which the US no longer controls.
 
 ### Other errors
-You may see other errors in the regs, for example missing part descriptions.
-That is what "alpha" means in the title- this work is a tech demonstration and
-not intended for serious legal reference or research.
+You may see other errors in the regs. In particular, parts with tabular data 
+are generally not parsed well (tables are not supported and can through 
+off the way we separate the text into sections). Titles 26 and 40 (IRS and EPA) contain a lot of tables and are particularly busted. That is what "alpha" means in the title- this work 
+is a tech demonstration and not intended for legal reference or research.
 
 ### Public domain
 
